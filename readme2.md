@@ -16,7 +16,111 @@ The infrastructure leverages **Google Cloud Storage** for all data and model art
 
 ## System Architecture
 
-![System Architecture](media/architecture_diagram.png)
+flowchart TB
+    %% Simplified, Clean Architecture Diagram
+    
+    %% Style Definitions
+    classDef dataSource fill:#4A90E2,stroke:#2E5C8A,stroke-width:2px,color:#fff
+    classDef storage fill:#34A853,stroke:#1E7E34,stroke-width:2px,color:#fff
+    classDef model fill:#FBBC04,stroke:#E37400,stroke-width:2px,color:#000
+    classDef cicd fill:#9B59B6,stroke:#6C3483,stroke-width:2px,color:#fff
+    classDef api fill:#E74C3C,stroke:#C0392B,stroke-width:2px,color:#fff
+    classDef ui fill:#3498DB,stroke:#21618C,stroke-width:2px,color:#fff
+    
+    %% ====================
+    %% LAYER 1: DATA SOURCES
+    %% ====================
+    subgraph Layer1["📥 DATA SOURCES"]
+        direction LR
+        FRED[FRED API<br/>Economic Data]:::dataSource
+        Yahoo[Yahoo Finance<br/>Market Data]:::dataSource
+    end
+    
+    %% ====================
+    %% LAYER 2: DATA PIPELINE
+    %% ====================
+    subgraph Layer2["🔄 DATA PIPELINE"]
+        Airflow[Apache Airflow<br/>Orchestration]:::dataSource
+        GCS1[(Google Cloud Storage<br/>Raw & Processed Data)]:::storage
+    end
+    
+    %% ====================
+    %% LAYER 3: MODEL TRAINING
+    %% ====================
+    subgraph Layer3["🤖 MODEL TRAINING"]
+        direction LR
+        M1[Model 1: VAE<br/>Scenario Generation]:::model
+        M2[Model 2: LightGBM<br/>Financial Forecasting]:::model
+        M3[Model 3: SVM<br/>Anomaly Detection]:::model
+    end
+    
+    %% ====================
+    %% LAYER 4: MODEL STORAGE
+    %% ====================
+    GCS2[(GCS Bucket<br/>Model Artifacts<br/>.pkl files)]:::storage
+    MLflow[MLflow<br/>Experiment Tracking]:::storage
+    
+    %% ====================
+    %% LAYER 5: CI/CD
+    %% ====================
+    subgraph Layer5["🔄 CI/CD AUTOMATION"]
+        GitHub[GitHub Actions<br/>Auto-Retrain on Push]:::cicd
+    end
+    
+    %% ====================
+    %% LAYER 6: API BACKEND
+    %% ====================
+    subgraph Layer6["⚡ API BACKEND"]
+        FastAPI[FastAPI Server<br/>+ Model Loader<br/>Auto-reload from GCS]:::api
+    end
+    
+    %% ====================
+    %% LAYER 7: FRONTEND
+    %% ====================
+    subgraph Layer7["💼 USER INTERFACE"]
+        Dashboard[React Dashboard<br/>Generate Scenarios<br/>Run Stress Tests<br/>View Results]:::ui
+    end
+    
+    %% ====================
+    %% LAYER 8: DEPLOYMENT
+    %% ====================
+    Deploy[GCP Cloud Run<br/>Serverless Deployment]:::cicd
+    
+    %% ====================
+    %% CONNECTIONS
+    %% ====================
+    
+    %% Data Flow
+    FRED --> Airflow
+    Yahoo --> Airflow
+    Airflow --> GCS1
+    GCS1 --> M1 & M2 & M3
+    
+    %% Model Training Flow
+    M1 & M2 & M3 --> MLflow
+    M1 & M2 & M3 --> GCS2
+    
+    %% CI/CD Flow
+    GitHub -.->|Trigger<br/>Retrain| M1 & M2 & M3
+    GitHub -.->|Upload New<br/>Models| GCS2
+    
+    %% API Flow
+    GCS2 -->|Fetch Latest<br/>Models| FastAPI
+    FastAPI <-->|API Calls| Dashboard
+    
+    %% Deployment
+    FastAPI --> Deploy
+    
+    %% ====================
+    %% LABELS
+    %% ====================
+    
+    style Layer1 fill:#E8F4F8,stroke:#4A90E2,stroke-width:3px
+    style Layer2 fill:#E8F5E9,stroke:#5CB85C,stroke-width:3px
+    style Layer3 fill:#FFF3E0,stroke:#F0AD4E,stroke-width:3px
+    style Layer5 fill:#F5E6FF,stroke:#9B59B6,stroke-width:3px
+    style Layer6 fill:#FCE4EC,stroke:#E91E63,stroke-width:3px
+    style Layer7 fill:#E3F2FD,stroke:#2196F3,stroke-width:3px
 
 The architecture illustrates the complete workflow from data ingestion through Apache Airflow, independent preprocessing pipelines for each model, parallel training with MLflow tracking, automated deployment to Google Cloud Storage, and intelligent CI/CD via GitHub Actions.
 
