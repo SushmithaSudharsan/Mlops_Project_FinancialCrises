@@ -1,60 +1,58 @@
-# Financial Stress Test Generator - MLOps Project
+# Financial Stress Test Generator 🏦
 
-**Course**: MLOps (Fall 2024)  
-**Group**: MLOps Group 11  
-**Project**: End-to-End ML Pipeline for Financial Stress Testing
+[![Build Status](https://github.com/mlops-group-11/financial-stress-test/actions/workflows/retrain.yml/badge.svg)](https://github.com/mlops-group-11/financial-stress-test/actions)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![MLOps](https://img.shields.io/badge/MLOps-Production-green.svg)](https://mlops.org/)
+[![GCP](https://img.shields.io/badge/Cloud-GCP-4285F4.svg)](https://cloud.google.com/)
+
+> **An end-to-end MLOps system for automated financial stress testing using machine learning.**
+
+Financial Stress Test Generator is a production-grade machine learning pipeline that assesses how companies perform under adverse economic conditions. Built with modern MLOps practices, it automates everything from data ingestion to model deployment, enabling real-time risk assessment through an interactive dashboard.
+
+## 🎯 Key Features
+
+- **🎲 Synthetic Scenario Generation**: VAE model creates realistic economic stress scenarios
+- **📊 Multi-Target Forecasting**: LightGBM ensemble predicts 5 financial metrics per company
+- **⚠️ Intelligent Risk Assessment**: One-Class SVM with SHAP explainability for anomaly detection
+- **🔄 Automated Pipeline**: Apache Airflow orchestrates daily data updates from FRED & Yahoo Finance
+- **🚀 CI/CD Integration**: GitHub Actions automatically retrains models on code changes
+- **☁️ Cloud-Native**: Deployed on GCP Cloud Run with auto-scaling
+- **📈 Real-Time Dashboard**: Interactive UI for scenario generation and stress testing
+- **📉 Drift Detection**: Automated monitoring for data and model performance drift
+- **🔍 MLflow Tracking**: Complete experiment tracking and model versioning
 
 ---
 
 ## 📋 Table of Contents
 
-1. [Introduction](#1-introduction)
-2. [Project Overview](#2-project-overview)
-3. [Tech Stack](#3-tech-stack)
-4. [Data Sources](#4-data-sources)
-5. [Data Pipeline](#5-data-pipeline)
-6. [Model Architecture](#6-model-architecture)
-7. [Model Training](#7-model-training)
-8. [MLflow Tracking](#8-mlflow-tracking)
-9. [Monitoring](#9-monitoring)
-10. [Deployment](#10-deployment)
-11. [CI/CD Pipeline](#11-cicd-pipeline)
-12. [API Documentation](#12-api-documentation)
-13. [User Dashboard](#13-user-dashboard)
-14. [Project Structure](#14-project-structure)
-15. [Setup Instructions](#15-setup-instructions)
-16. [Team Members](#16-team-members)
+- [Architecture](#-architecture)
+- [Technology Stack](#-technology-stack)
+- [Getting Started](#-getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Configuration](#configuration)
+- [Usage](#-usage)
+  - [Quick Start](#quick-start)
+  - [API Usage](#api-usage)
+  - [Dashboard Usage](#dashboard-usage)
+- [Project Structure](#-project-structure)
+- [Data Pipeline](#-data-pipeline)
+- [Model Architecture](#-model-architecture)
+- [Deployment](#-deployment)
+- [CI/CD Pipeline](#-cicd-pipeline)
+- [Monitoring & Drift Detection](#-monitoring--drift-detection)
+- [API Documentation](#-api-documentation)
+- [Contributing](#-contributing)
+- [Support](#-support)
+- [Team](#-team)
+- [License](#-license)
 
 ---
 
-## 1. Introduction
+## 🏗 Architecture
 
-The **Financial Stress Test Generator** is a comprehensive MLOps system that uses machine learning to assess financial resilience under adverse economic scenarios. This project implements an end-to-end ML pipeline with automated retraining, monitoring, and deployment capabilities.
-
-### Key Features
-- ✅ Automated data ingestion from FRED API and Yahoo Finance
-- ✅ Three ML models working in ensemble (VAE, LightGBM, One-Class SVM)
-- ✅ Real-time stress testing through interactive dashboard
-- ✅ CI/CD pipeline with GitHub Actions
-- ✅ Cloud deployment on Google Cloud Platform
-- ✅ MLflow experiment tracking
-- ✅ Drift detection and monitoring
-
----
-
-## 2. Project Overview
-
-### Problem Statement
-Financial institutions need to assess their resilience against economic shocks such as recessions, market crashes, and geopolitical events. Traditional stress testing methods are manual, time-consuming, and often based on limited scenarios.
-
-### Solution
-Our system automates the entire stress testing workflow:
-1. **Generate synthetic economic scenarios** using a Variational Autoencoder (VAE)
-2. **Predict company performance** under stress using gradient boosting models
-3. **Detect anomalies and assess risk** using One-Class SVM with weak supervision
-4. **Provide real-time results** through an interactive web dashboard
-
-### Architecture Diagram
+Our system implements a complete MLOps pipeline with the following components:
 
 ```mermaid
 graph LR
@@ -86,570 +84,215 @@ graph LR
     Train --> MLflow
 ```
 
----
+### Pipeline Flow
 
-## 3. Tech Stack
-
-### Languages
-- **Python 3.9+**: Core programming language
-- **JavaScript/HTML/CSS**: Frontend dashboard
-
-### ML/Data Science Libraries
-- **PyTorch**: Deep learning framework for VAE
-- **LightGBM / XGBoost**: Gradient boosting models
-- **Scikit-learn**: One-Class SVM, preprocessing
-- **Pandas / NumPy**: Data manipulation
-- **Snorkel**: Weak supervision for labeling
-
-### MLOps Tools
-- **Apache Airflow**: Workflow orchestration
-- **MLflow**: Experiment tracking and model registry
-- **DVC**: Data version control (optional)
-
-### Cloud & Infrastructure
-- **Google Cloud Platform (GCP)**:
-  - Cloud Storage (GCS): Data and model storage
-  - Cloud Run: Serverless deployment
-  - Cloud Logging: System monitoring
-- **Docker**: Containerization
-- **GitHub Actions**: CI/CD automation
-
-### API & Frontend
-- **FastAPI**: High-performance API backend
-- **React / HTML5**: Interactive dashboard
-- **Uvicorn**: ASGI server
+1. **Data Ingestion**: FRED API and Yahoo Finance provide economic and financial data
+2. **Data Processing**: Apache Airflow orchestrates cleaning and feature engineering
+3. **Model Training**: Three specialized ML models train on processed data
+4. **Model Storage**: Trained models (.pkl files) stored in Google Cloud Storage
+5. **CI/CD Automation**: GitHub Actions triggers retraining on code changes
+6. **API Serving**: FastAPI loads latest models and serves predictions
+7. **User Interface**: React dashboard provides interactive stress testing
+8. **Deployment**: Serverless deployment on GCP Cloud Run with auto-scaling
 
 ---
 
-## 4. Data Sources
+## 💻 Technology Stack
 
-### 4.1 FRED API (Federal Reserve Economic Data)
-**Source**: [https://fred.stlouisfed.org/](https://fred.stlouisfed.org/)
+### Core Technologies
 
-**Economic Indicators Collected**:
-- GDP (Gross Domestic Product)
-- CPI (Consumer Price Index)
-- Unemployment Rate
-- Federal Funds Rate
-- VIX (Volatility Index)
-- 10-Year Treasury Yield
+| Category | Technology | Purpose |
+|----------|-----------|---------|
+| **Language** | Python 3.9+ | Core development language |
+| **ML Frameworks** | PyTorch, LightGBM, Scikit-learn | Model development |
+| **Orchestration** | Apache Airflow | Workflow automation |
+| **Experiment Tracking** | MLflow | Model versioning & metrics |
+| **API Framework** | FastAPI | High-performance REST API |
+| **Frontend** | React/HTML5 | Interactive dashboard |
+| **Cloud Platform** | Google Cloud Platform | Infrastructure & deployment |
+| **Containerization** | Docker | Application packaging |
+| **CI/CD** | GitHub Actions | Automated testing & deployment |
+| **Monitoring** | GCP Cloud Logging | System observability |
 
-**Update Frequency**: Daily/Weekly/Monthly (varies by indicator)
+### Key Libraries
 
-### 4.2 Yahoo Finance API
-**Source**: [https://finance.yahoo.com/](https://finance.yahoo.com/)
-
-**Financial Metrics Collected**:
-- Stock prices (Open, High, Low, Close)
-- Market indices (S&P 500, NASDAQ, Dow Jones)
-- Company financials:
-  - Revenue
-  - Earnings Per Share (EPS)
-  - Debt-to-Equity Ratio
-  - Profit Margin
-  - Return on Assets (ROA)
-
-**Companies Tracked**: 50+ major US companies across sectors
-
----
-
-## 5. Data Pipeline
-
-### 5.1 Orchestration with Apache Airflow
-
-**DAG Structure**:
 ```
-financial_stress_test_pipeline
-├── fetch_fred_data (Task)
-├── fetch_yahoo_data (Task)
-├── clean_data (Task)
-├── feature_engineering (Task)
-└── upload_to_gcs (Task)
-```
-
-**Schedule**: Daily at 6:00 AM UTC (configurable)
-
-### 5.2 Data Processing Steps
-
-#### Step 1: Data Ingestion
-- Fetch latest economic indicators from FRED API
-- Fetch latest company financials from Yahoo Finance
-- Store raw data in GCS: `gs://mlops-data/raw/`
-
-#### Step 2: Data Cleaning
-- Handle missing values (forward fill, interpolation)
-- Remove outliers using IQR method
-- Standardize date formats
-- Validate data types
-
-#### Step 3: Feature Engineering
-- Calculate rolling averages (7-day, 30-day)
-- Compute financial ratios
-- Create lag features for time-series
-- Normalize/scale features
-
-#### Step 4: Data Storage
-- Store processed data in GCS: `gs://mlops-data/processed/`
-- Maintain data versioning with timestamps
-
-### 5.3 Data Schema
-
-**Processed Data Schema**:
-```python
-{
-    "date": "2024-12-10",
-    "GDP": 25000.0,
-    "CPI": 310.5,
-    "Unemployment_Rate": 3.7,
-    "Federal_Funds_Rate": 5.25,
-    "VIX": 18.5,
-    "SP500_close": 4500.0,
-    "company_id": "AAPL",
-    "Revenue": 394328000000,
-    "EPS": 6.11,
-    "Debt_to_Equity": 1.78,
-    "Profit_Margin": 25.31,
-    "ROA": 22.1
-}
+pytorch>=1.12.0
+lightgbm>=3.3.5
+scikit-learn>=1.1.0
+snorkel>=0.9.9
+fastapi>=0.95.0
+apache-airflow>=2.5.0
+mlflow>=2.3.0
+pandas>=1.5.0
+numpy>=1.23.0
 ```
 
 ---
 
-## 6. Model Architecture
+## 🚀 Getting Started
 
-Our system uses **three models working in ensemble**:
+### Prerequisites
 
-### Model 1: VAE (Variational Autoencoder)
-**Purpose**: Generate synthetic economic stress scenarios
+Before you begin, ensure you have the following installed:
 
-**Architecture**:
-- **Encoder**: 
-  - Input: 15 macroeconomic features
-  - Hidden layers: [64, 32]
-  - Latent dimension: 16
-- **Decoder**:
-  - Latent dimension: 16
-  - Hidden layers: [32, 64]
-  - Output: 15 reconstructed features
+- **Python 3.9 or higher** ([Download](https://www.python.org/downloads/))
+- **Docker Desktop** ([Download](https://www.docker.com/products/docker-desktop))
+- **Git** ([Download](https://git-scm.com/downloads))
+- **Google Cloud SDK** ([Install Guide](https://cloud.google.com/sdk/docs/install))
+- **GCP Account** with billing enabled
 
-**Training Data**: Historical economic data (2000-2024)
+### Installation
 
-**Output**: Synthetic scenarios with varying severity levels:
-- Baseline (normal conditions)
-- Adverse (mild recession)
-- Severe (major financial crisis)
-- Extreme (catastrophic event)
+#### 1. Clone the Repository
 
-### Model 2: LightGBM Ensemble
-**Purpose**: Predict company financial metrics under stress
-
-**Target Variables** (5 models):
-1. Revenue
-2. Earnings Per Share (EPS)
-3. Debt-to-Equity Ratio
-4. Profit Margin
-5. Return on Assets (ROA)
-
-**Features**: 
-- Economic indicators (GDP, VIX, unemployment, etc.)
-- Company historical financials
-- Sector information
-- Time-based features
-
-**Hyperparameters**:
-```python
-{
-    "num_leaves": 31,
-    "learning_rate": 0.05,
-    "n_estimators": 200,
-    "max_depth": 7,
-    "min_child_samples": 20
-}
-```
-
-### Model 3: One-Class SVM + Snorkel
-**Purpose**: Anomaly detection and risk assessment
-
-**Architecture**:
-- **Weak Supervision (Snorkel)**: Generate training labels using labeling functions
-- **One-Class SVM**: Detect anomalies in predicted financial outcomes
-- **SHAP Explainer**: Provide interpretable risk factors
-
-**Risk Score Calculation**:
-```
-Risk Score = (Anomaly Score × 50) + (Feature Importance × 50)
-```
-
-**Risk Categories**:
-- Low Risk: 0-25
-- Moderate Risk: 25-50
-- High Risk: 50-75
-- Critical Risk: 75-100
-
----
-
-## 7. Model Training
-
-### 7.1 Training Pipeline
-
-Each model has a dedicated training script:
-```
-models/
-├── model1_vae/
-│   ├── train_vae.py
-│   └── generate_scenarios.py
-├── model2_forecasting/
-│   ├── train_lightgbm.py
-│   └── evaluate.py
-└── model3_anomaly/
-    ├── train_svm.py
-    └── explain_shap.py
-```
-
-### 7.2 Training Process
-
-#### Model 1: VAE Training
 ```bash
-python models/model1_vae/train_vae.py \
-    --data gs://mlops-data/processed/economic_data.csv \
-    --epochs 100 \
-    --latent_dim 16 \
-    --output gs://mlops-models/model1_vae.pkl
+git clone https://github.com/mlops-group-11/financial-stress-test.git
+cd financial-stress-test
 ```
 
-**Training Metrics**:
-- Reconstruction Loss (MSE)
-- KL Divergence
-- ELBO (Evidence Lower Bound)
+#### 2. Create Virtual Environment
 
-#### Model 2: LightGBM Training
 ```bash
-python models/model2_forecasting/train_lightgbm.py \
-    --data gs://mlops-data/processed/company_data.csv \
-    --targets Revenue,EPS,Debt_to_Equity,Profit_Margin,ROA \
-    --output gs://mlops-models/
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# On macOS/Linux:
+source venv/bin/activate
+
+# On Windows:
+venv\Scripts\activate
 ```
 
-**Evaluation Metrics**:
-- RMSE (Root Mean Squared Error)
-- MAE (Mean Absolute Error)
-- R² Score
+#### 3. Install Dependencies
 
-#### Model 3: SVM Training
 ```bash
-python models/model3_anomaly/train_svm.py \
-    --data gs://mlops-data/processed/predictions.csv \
-    --output gs://mlops-models/model3_svm.pkl
+# Upgrade pip
+pip install --upgrade pip
+
+# Install all requirements
+pip install -r requirements.txt
 ```
 
-**Evaluation Metrics**:
-- ROC-AUC Score
-- Precision-Recall Curve
-- F1 Score
+#### 4. Install Development Dependencies (Optional)
 
-### 7.3 Model Artifacts
-
-After training, models are saved to GCS:
-```
-gs://mlops-models/
-├── model1_vae.pkl          # VAE model
-├── best_model_Revenue.pkl  # LightGBM for Revenue
-├── best_model_EPS.pkl      # LightGBM for EPS
-├── best_model_Debt.pkl     # LightGBM for Debt
-├── best_model_Margin.pkl   # LightGBM for Margin
-├── best_model_ROA.pkl      # LightGBM for ROA
-└── model3_svm.pkl          # SVM + scaler + features
-```
-
----
-
-## 8. MLflow Tracking
-
-### 8.1 Experiment Organization
-
-**MLflow Projects**:
-```
-mlflow/
-├── VAE_Scenario_Generation/
-├── LightGBM_Revenue_Prediction/
-├── LightGBM_EPS_Prediction/
-├── LightGBM_Debt_Prediction/
-├── LightGBM_Margin_Prediction/
-├── LightGBM_ROA_Prediction/
-└── SVM_Anomaly_Detection/
-```
-
-### 8.2 Logged Metrics
-
-**Model 1 (VAE)**:
-- `reconstruction_loss`: MSE between input and output
-- `kl_divergence`: KL divergence in latent space
-- `elbo`: Evidence lower bound
-- `epoch`: Training epoch number
-
-**Model 2 (LightGBM)**:
-- `rmse`: Root mean squared error
-- `mae`: Mean absolute error
-- `r2_score`: Coefficient of determination
-- `train_time`: Training duration
-
-**Model 3 (SVM)**:
-- `roc_auc`: Area under ROC curve
-- `precision`: Precision score
-- `recall`: Recall score
-- `f1_score`: F1 score
-
-### 8.3 Logged Parameters
-
-```python
-{
-    "learning_rate": 0.05,
-    "num_leaves": 31,
-    "max_depth": 7,
-    "n_estimators": 200,
-    "latent_dim": 16,
-    "kernel": "rbf",
-    "gamma": "scale"
-}
-```
-
-### 8.4 Model Registry
-
-Models are registered in MLflow with stages:
-- **None**: Newly trained model
-- **Staging**: Under evaluation
-- **Production**: Currently deployed
-- **Archived**: Deprecated models
-
----
-
-## 9. Monitoring
-
-### 9.1 Data Drift Detection
-
-**Method**: Kolmogorov-Smirnov (KS) Test
-
-**Monitored Features**:
-- GDP, CPI, Unemployment Rate
-- VIX, S&P 500 Close
-- Company Revenue, EPS
-
-**Alert Threshold**: p-value < 0.05 indicates drift
-
-**Implementation**:
-```python
-from scipy.stats import ks_2samp
-
-def detect_drift(reference_data, current_data):
-    statistic, p_value = ks_2samp(reference_data, current_data)
-    return p_value < 0.05  # True if drift detected
-```
-
-### 9.2 Model Performance Monitoring
-
-**Metrics Tracked**:
-- Prediction accuracy over time
-- Error distribution shifts
-- Inference latency
-- API response times
-
-**Dashboard**: Real-time metrics in GCP Cloud Logging
-
-### 9.3 Alerting System
-
-**Alert Triggers**:
-- Data drift detected
-- Model performance degradation (>10% RMSE increase)
-- API error rate > 5%
-- GCS storage quota exceeded
-
-**Notification Channels**:
-- Email alerts
-- Slack webhooks
-- GCP Cloud Monitoring
-
----
-
-## 10. Deployment
-
-### 10.1 Containerization
-
-**Dockerfile**:
-```dockerfile
-FROM python:3.9-slim
-
-WORKDIR /app
-
-# Install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy application code
-COPY deployment/api /app/api
-COPY models /app/models
-
-# Expose port
-EXPOSE 8000
-
-# Run FastAPI
-CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
-```
-
-**Build & Push**:
 ```bash
-# Build Docker image
-docker build -t gcr.io/mlops-project/stress-test-api:latest .
-
-# Push to Google Container Registry
-docker push gcr.io/mlops-project/stress-test-api:latest
+pip install -r requirements-dev.txt
 ```
 
-### 10.2 GCP Cloud Run Deployment
+### Configuration
 
-**Deployment Configuration**:
-```yaml
-apiVersion: serving.knative.dev/v1
-kind: Service
-metadata:
-  name: financial-stress-test-api
-spec:
-  template:
-    spec:
-      containers:
-      - image: gcr.io/mlops-project/stress-test-api:latest
-        ports:
-        - containerPort: 8000
-        env:
-        - name: GCS_BUCKET_NAME
-          value: "mlops-models"
-        resources:
-          limits:
-            memory: "4Gi"
-            cpu: "2"
-```
+#### 1. Set Up Google Cloud Credentials
 
-**Deploy Command**:
 ```bash
-gcloud run deploy financial-stress-test-api \
-    --image gcr.io/mlops-project/stress-test-api:latest \
-    --platform managed \
-    --region us-central1 \
-    --allow-unauthenticated \
-    --memory 4Gi \
-    --cpu 2
+# Authenticate with Google Cloud
+gcloud auth application-default login
+
+# Set your GCP project
+gcloud config set project YOUR_PROJECT_ID
+
+# Create service account (if needed)
+gcloud iam service-accounts create mlops-service-account \
+    --display-name="MLOps Service Account"
+
+# Download service account key
+gcloud iam service-accounts keys create ~/gcp-key.json \
+    --iam-account=mlops-service-account@YOUR_PROJECT_ID.iam.gserviceaccount.com
+
+# Set environment variable
+export GOOGLE_APPLICATION_CREDENTIALS="$HOME/gcp-key.json"
 ```
 
-### 10.3 Auto-Scaling Configuration
+#### 2. Configure Environment Variables
 
-- **Min Instances**: 1
-- **Max Instances**: 10
-- **Target CPU Utilization**: 70%
-- **Target Concurrency**: 100 requests
+Create a `.env` file in the project root:
 
-### 10.4 Deployment URL
+```bash
+# GCP Configuration
+GCS_BUCKET_NAME=mlops-models
+GCS_DATA_BUCKET=mlops-data
+GCP_PROJECT_ID=your-project-id
 
-**Production API**: `https://financial-stress-test-api-[hash]-uc.a.run.app`
+# API Keys
+FRED_API_KEY=your_fred_api_key_here
 
-**Health Check**: `GET /api/v1/health`
+# MLflow Configuration
+MLFLOW_TRACKING_URI=http://localhost:5000
+
+# API Configuration
+API_HOST=0.0.0.0
+API_PORT=8000
+```
+
+#### 3. Create GCS Buckets
+
+```bash
+# Create buckets for data and models
+gsutil mb -p YOUR_PROJECT_ID -l us-central1 gs://mlops-data
+gsutil mb -p YOUR_PROJECT_ID -l us-central1 gs://mlops-models
+
+# Verify buckets
+gsutil ls
+```
+
+#### 4. Get FRED API Key
+
+1. Visit [FRED API](https://fred.stlouisfed.org/docs/api/api_key.html)
+2. Create a free account
+3. Request an API key
+4. Add to `.env` file
 
 ---
 
-## 11. CI/CD Pipeline
+## 📖 Usage
 
-### 11.1 GitHub Actions Workflow
+### Quick Start
 
-**Workflow File**: `.github/workflows/retrain.yml`
+#### Option 1: Run with Docker (Recommended)
 
-```yaml
-name: Model Retraining Pipeline
+```bash
+# Build the Docker image
+docker build -t financial-stress-test .
 
-on:
-  push:
-    branches: [main]
-    paths:
-      - 'models/**'
-      - 'data/**'
-  schedule:
-    - cron: '0 0 * * 0'  # Weekly on Sunday
+# Run the container
+docker run -p 8000:8000 \
+  --env-file .env \
+  -v ~/.config/gcloud:/root/.config/gcloud \
+  financial-stress-test
 
-jobs:
-  retrain-models:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-    
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-    
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-    
-    - name: Authenticate to GCP
-      uses: google-github-actions/auth@v1
-      with:
-        credentials_json: ${{ secrets.GCP_SA_KEY }}
-    
-    - name: Download latest data from GCS
-      run: |
-        gsutil cp gs://mlops-data/processed/*.csv ./data/
-    
-    - name: Train Model 1 (VAE)
-      run: |
-        python models/model1_vae/train_vae.py
-    
-    - name: Train Model 2 (LightGBM)
-      run: |
-        python models/model2_forecasting/train_lightgbm.py
-    
-    - name: Train Model 3 (SVM)
-      run: |
-        python models/model3_anomaly/train_svm.py
-    
-    - name: Upload models to GCS
-      run: |
-        gsutil cp models/model1_vae.pkl gs://mlops-models/
-        gsutil cp models/best_model_*.pkl gs://mlops-models/
-        gsutil cp models/model3_svm.pkl gs://mlops-models/
-    
-    - name: Trigger API reload
-      run: |
-        curl -X POST https://financial-stress-test-api-[hash]-uc.a.run.app/api/v1/admin/reload-models
+# Access the dashboard
+open http://localhost:8000/dashboard
 ```
 
-### 11.2 CI/CD Triggers
+#### Option 2: Run Locally
 
-1. **Push to main branch**: Triggers full retraining
-2. **Scheduled run**: Weekly automatic retraining
-3. **Manual trigger**: Via GitHub Actions UI
+```bash
+# Step 1: Run data pipeline
+python airflow/dags/data_pipeline.py
 
-### 11.3 Model Versioning
+# Step 2: Train models
+python models/model1_vae/train_vae.py
+python models/model2_forecasting/train_lightgbm.py
+python models/model3_anomaly/train_svm.py
 
-- Models saved with timestamps: `model_YYYYMMDD_HHMMSS.pkl`
-- API automatically loads latest model by GCS timestamp
-- Old models archived for rollback capability
+# Step 3: Start API server
+cd deployment/api
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
----
-
-## 12. API Documentation
-
-### 12.1 Base URL
-
-**Local**: `http://localhost:8000`  
-**Production**: `https://financial-stress-test-api-[hash]-uc.a.run.app`
-
-### 12.2 Endpoints
-
-#### Health Check
-```http
-GET /api/v1/health
+# Step 4: Open dashboard in browser
+open http://localhost:8000/dashboard
 ```
 
-**Response**:
+### API Usage
+
+#### Example 1: Check API Health
+
+```bash
+curl http://localhost:8000/api/v1/health
+```
+
+**Response:**
 ```json
 {
   "status": "healthy",
@@ -665,65 +308,48 @@ GET /api/v1/health
 }
 ```
 
-#### Generate Scenarios
-```http
-POST /api/v1/scenarios/generate
-Content-Type: application/json
+#### Example 2: Generate Stress Scenarios
 
-{
-  "n_scenarios": 50
-}
+```bash
+curl -X POST http://localhost:8000/api/v1/scenarios/generate \
+  -H "Content-Type: application/json" \
+  -d '{"n_scenarios": 20}'
 ```
 
-**Response**:
+**Response:**
 ```json
 {
   "status": "success",
-  "n_scenarios": 50,
+  "n_scenarios": 20,
   "scenarios": [
     {
       "scenario_id": 1,
       "severity": "adverse",
+      "crisis_type": "market_crash",
       "macroeconomic_indicators": {
         "GDP": 24500.0,
         "VIX": 28.5,
-        "Unemployment_Rate": 5.2
+        "Unemployment_Rate": 5.2,
+        "CPI": 315.2,
+        "Federal_Funds_Rate": 6.0
       }
     }
   ]
 }
 ```
 
-#### List Companies
-```http
-GET /api/v1/companies
+#### Example 3: Run Stress Test
+
+```bash
+curl -X POST http://localhost:8000/api/v1/stress-test \
+  -H "Content-Type: application/json" \
+  -d '{
+    "company_id": "AAPL",
+    "scenario_ids": [1, 2, 3]
+  }'
 ```
 
-**Response**:
-```json
-{
-  "companies": [
-    {
-      "company_id": "AAPL",
-      "sector": "Technology",
-      "market_cap": 3000000000000
-    }
-  ]
-}
-```
-
-#### Run Stress Test
-```http
-POST /api/v1/stress-test
-Content-Type: application/json
-
-{
-  "company_id": "AAPL",
-  "scenario_ids": [1, 2, 3]
-}
-```
-
-**Response**:
+**Response:**
 ```json
 {
   "company_id": "AAPL",
@@ -733,22 +359,709 @@ Content-Type: application/json
     "avg_risk_score": 42.5,
     "best_case": {
       "scenario_id": 1,
-      "risk_score": 25.3
+      "risk_score": 25.3,
+      "predictions": {
+        "revenue_change_pct": -5.2,
+        "eps_change_pct": -8.1
+      }
     },
     "worst_case": {
       "scenario_id": 3,
-      "risk_score": 68.2
+      "risk_score": 68.2,
+      "predictions": {
+        "revenue_change_pct": -18.5,
+        "eps_change_pct": -25.3
+      }
     }
   }
 }
 ```
 
-#### Reload Models (Admin)
-```http
-POST /api/v1/admin/reload-models?force=true
+#### Example 4: Python Client
+
+```python
+import requests
+
+# Initialize client
+API_BASE = "http://localhost:8000/api/v1"
+
+# Generate scenarios
+response = requests.post(
+    f"{API_BASE}/scenarios/generate",
+    json={"n_scenarios": 50}
+)
+scenarios = response.json()
+
+# Run stress test
+response = requests.post(
+    f"{API_BASE}/stress-test",
+    json={
+        "company_id": "AAPL",
+        "scenario_ids": [1, 2, 3, 4, 5]
+    }
+)
+results = response.json()
+
+print(f"Average Risk Score: {results['summary']['avg_risk_score']}")
 ```
 
-**Response**:
+### Dashboard Usage
+
+#### Step 1: Generate Scenarios
+1. Open the dashboard at `http://localhost:8000/dashboard`
+2. Navigate to the **"Generate Scenarios"** tab
+3. Select the number of scenarios (10, 20, 50, or 100)
+4. Click **"Generate New Scenarios"**
+5. Review generated scenarios and click on cards to select them (selected cards turn green)
+
+#### Step 2: Run Stress Test
+1. Navigate to the **"Stress Test"** tab
+2. Select a company from the dropdown (e.g., AAPL, MSFT, GOOGL)
+3. Choose **"Use Selected Scenarios from Tab 2"**
+4. Click **"Run Stress Test"**
+5. Results automatically appear in the **"Results"** tab
+
+#### Step 3: Analyze Results
+View comprehensive results including:
+- **Risk Score**: 0-100 scale with risk category (Low/Moderate/High/Critical)
+- **Economic Scenario**: GDP, VIX, unemployment, and other indicators
+- **Predicted Financials**: Revenue, EPS, Debt-to-Equity, Profit Margin, ROA
+- **SHAP Explanations**: Top 5 risk factors with contribution scores
+- **Anomaly Detection**: Whether the prediction is anomalous
+
+#### Step 4: Portfolio Analysis (Advanced)
+1. Navigate to the **"Portfolio Analysis"** tab
+2. Add multiple companies with weights (must sum to 100%)
+3. Select scenarios to test
+4. Click **"Analyze Portfolio"**
+5. View weighted risk scores and sector breakdown
+
+---
+
+## 📁 Project Structure
+
+```
+financial-stress-test-mlops/
+│
+├── .github/
+│   └── workflows/
+│       ├── retrain.yml              # CI/CD pipeline for model retraining
+│       └── tests.yml                # Automated testing workflow
+│
+├── data/
+│   ├── raw/                         # Raw data from FRED & Yahoo Finance
+│   ├── processed/                   # Cleaned and feature-engineered data
+│   └── scenarios/                   # Generated stress scenarios
+│
+├── models/
+│   ├── model1_vae/
+│   │   ├── train_vae.py            # VAE training script
+│   │   ├── vae_model.py            # VAE architecture
+│   │   ├── generate_scenarios.py   # Scenario generation logic
+│   │   └── config.yaml             # Model hyperparameters
+│   │
+│   ├── model2_forecasting/
+│   │   ├── train_lightgbm.py       # LightGBM training for 5 targets
+│   │   ├── feature_engineering.py  # Feature preprocessing
+│   │   ├── evaluate.py             # Model evaluation metrics
+│   │   └── config.yaml             # Hyperparameters per target
+│   │
+│   └── model3_anomaly/
+│       ├── train_svm.py            # One-Class SVM training
+│       ├── snorkel_labeling.py     # Weak supervision with Snorkel
+│       ├── explain_shap.py         # SHAP-based explanations
+│       └── config.yaml             # Model configuration
+│
+├── deployment/
+│   ├── api/
+│   │   ├── main.py                 # FastAPI application entry point
+│   │   ├── config.py               # API configuration
+│   │   ├── model_loader.py         # GCS model loader with caching
+│   │   ├── endpoints/
+│   │   │   ├── health.py           # Health check endpoint
+│   │   │   ├── scenarios.py        # Scenario generation endpoints
+│   │   │   ├── stress_test.py      # Stress testing endpoints
+│   │   │   └── companies.py        # Company listing endpoint
+│   │   └── utils/
+│   │       ├── preprocessing.py    # Input preprocessing
+│   │       └── validators.py       # Request validation
+│   │
+│   └── frontend/
+│       ├── dashboard.html          # Main dashboard interface
+│       ├── styles.css              # Dashboard styling
+│       └── app.js                  # Dashboard logic
+│
+├── airflow/
+│   ├── dags/
+│   │   ├── data_pipeline.py        # Main data pipeline DAG
+│   │   ├── fred_ingestion.py       # FRED API data fetching
+│   │   └── yahoo_ingestion.py      # Yahoo Finance data fetching
+│   │
+│   └── config/
+│       └── airflow.cfg             # Airflow configuration
+│
+├── monitoring/
+│   ├── drift_detection.py          # Data drift monitoring
+│   ├── performance_tracking.py     # Model performance metrics
+│   └── alerts.py                   # Alerting system
+│
+├── tests/
+│   ├── unit/
+│   │   ├── test_models.py          # Unit tests for models
+│   │   ├── test_preprocessing.py   # Data processing tests
+│   │   └── test_utils.py           # Utility function tests
+│   │
+│   └── integration/
+│       ├── test_api.py             # API integration tests
+│       └── test_pipeline.py        # End-to-end pipeline tests
+│
+├── notebooks/
+│   ├── 01_data_exploration.ipynb   # EDA and data analysis
+│   ├── 02_model_experiments.ipynb  # Model experimentation
+│   └── 03_results_analysis.ipynb   # Results visualization
+│
+├── docs/
+│   ├── API.md                      # Detailed API documentation
+│   ├── DEPLOYMENT.md               # Deployment guide
+│   ├── CONTRIBUTING.md             # Contribution guidelines
+│   └── ARCHITECTURE.md             # System architecture details
+│
+├── scripts/
+│   ├── setup_gcp.sh                # GCP infrastructure setup
+│   ├── download_data.sh            # Data download script
+│   └── deploy.sh                   # Deployment automation
+│
+├── Dockerfile                       # Docker image definition
+├── docker-compose.yml              # Multi-container Docker setup
+├── requirements.txt                # Production dependencies
+├── requirements-dev.txt            # Development dependencies
+├── .env.example                    # Example environment variables
+├── .gitignore                      # Git ignore rules
+├── .dockerignore                   # Docker ignore rules
+├── README.md                       # This file
+└── LICENSE                         # MIT License
+```
+
+---
+
+## 🔄 Data Pipeline
+
+### Data Sources
+
+#### 1. FRED API (Economic Data)
+**Indicators Collected:**
+- GDP (Gross Domestic Product)
+- CPI (Consumer Price Index)
+- Unemployment Rate
+- Federal Funds Rate
+- VIX (Market Volatility Index)
+- 10-Year Treasury Yield
+
+**Update Frequency:** Daily/Weekly/Monthly
+
+#### 2. Yahoo Finance API (Financial Data)
+**Company Metrics:**
+- Stock prices (OHLC)
+- Revenue
+- Earnings Per Share (EPS)
+- Debt-to-Equity Ratio
+- Profit Margin
+- Return on Assets (ROA)
+
+**Companies Tracked:** 50+ major US companies
+
+### Pipeline Workflow
+
+```
+┌─────────────────┐
+│  FRED API       │─┐
+│  Yahoo Finance  │ │
+└─────────────────┘ │
+                    ▼
+┌──────────────────────────┐
+│  Apache Airflow DAG      │
+│  ┌────────────────────┐  │
+│  │ 1. Fetch Data      │  │
+│  │ 2. Validate Schema │  │
+│  │ 3. Clean & Process │  │
+│  │ 4. Feature Eng.    │  │
+│  │ 5. Upload to GCS   │  │
+│  └────────────────────┘  │
+└──────────────────────────┘
+                    │
+                    ▼
+┌──────────────────────────┐
+│  GCS Storage             │
+│  gs://mlops-data/        │
+│    ├── raw/              │
+│    └── processed/        │
+└──────────────────────────┘
+```
+
+### Data Processing Steps
+
+1. **Ingestion**: Fetch latest data from APIs
+2. **Validation**: Check data quality and schema
+3. **Cleaning**: Handle missing values, remove outliers
+4. **Feature Engineering**: Create derived features, calculate ratios
+5. **Storage**: Upload to GCS with timestamps
+
+### Running the Pipeline
+
+```bash
+# Manually trigger pipeline
+python airflow/dags/data_pipeline.py
+
+# Or use Airflow CLI
+airflow dags trigger financial_data_pipeline
+```
+
+---
+
+## 🤖 Model Architecture
+
+### Overview
+
+Our system uses three specialized models working in ensemble:
+
+| Model | Purpose | Technology | Output |
+|-------|---------|------------|--------|
+| **Model 1** | Scenario Generation | Variational Autoencoder (VAE) | Synthetic economic scenarios |
+| **Model 2** | Financial Forecasting | LightGBM Ensemble | 5 financial metrics predictions |
+| **Model 3** | Risk Assessment | One-Class SVM + Snorkel | Anomaly score & risk category |
+
+### Model 1: VAE for Scenario Generation
+
+**Architecture:**
+```
+Input (15 features) → Encoder [64, 32] → Latent (16) → Decoder [32, 64] → Output (15 features)
+```
+
+**Key Features:**
+- Generates synthetic economic stress scenarios
+- Latent space sampling for scenario diversity
+- Severity classification (Baseline/Adverse/Severe/Extreme)
+
+**Training:**
+```bash
+python models/model1_vae/train_vae.py \
+    --epochs 100 \
+    --latent_dim 16 \
+    --learning_rate 0.001
+```
+
+**Output:** `model1_vae.pkl` saved to GCS
+
+### Model 2: LightGBM Forecasting Ensemble
+
+**Target Variables:**
+1. Revenue
+2. Earnings Per Share (EPS)
+3. Debt-to-Equity Ratio
+4. Profit Margin
+5. Return on Assets (ROA)
+
+**Architecture:** 5 independent LightGBM models (one per target)
+
+**Hyperparameters:**
+```python
+{
+    "num_leaves": 31,
+    "learning_rate": 0.05,
+    "n_estimators": 200,
+    "max_depth": 7,
+    "min_child_samples": 20,
+    "objective": "regression"
+}
+```
+
+**Training:**
+```bash
+python models/model2_forecasting/train_lightgbm.py \
+    --targets Revenue,EPS,Debt_to_Equity,Profit_Margin,ROA
+```
+
+**Output:** 5 `.pkl` files (one per target) saved to GCS
+
+### Model 3: One-Class SVM for Anomaly Detection
+
+**Architecture:**
+1. **Snorkel Weak Supervision**: Label unlabeled data using labeling functions
+2. **One-Class SVM**: Train on "normal" financial outcomes
+3. **SHAP Explainer**: Generate feature importance for interpretability
+
+**Workflow:**
+```
+Predictions → Snorkel Labeling → SVM Training → Anomaly Score → SHAP Explanations
+```
+
+**Training:**
+```bash
+python models/model3_anomaly/train_svm.py \
+    --kernel rbf \
+    --gamma scale \
+    --nu 0.1
+```
+
+**Output:** `model3_svm.pkl` with scaler and feature list saved to GCS
+
+### Model Performance
+
+| Model | Metric | Value |
+|-------|--------|-------|
+| VAE | Reconstruction Loss | 0.032 |
+| LightGBM (Revenue) | RMSE | $2.5B |
+| LightGBM (EPS) | MAE | $0.15 |
+| One-Class SVM | ROC-AUC | 0.89 |
+
+---
+
+## ☁️ Deployment
+
+### Docker Deployment
+
+#### Build Image
+
+```bash
+# Build Docker image
+docker build -t financial-stress-test:latest .
+
+# Tag for GCR
+docker tag financial-stress-test:latest \
+    gcr.io/YOUR_PROJECT_ID/financial-stress-test:latest
+
+# Push to Google Container Registry
+docker push gcr.io/YOUR_PROJECT_ID/financial-stress-test:latest
+```
+
+#### Run Locally
+
+```bash
+docker run -p 8000:8000 \
+    --env-file .env \
+    -v ~/.config/gcloud:/root/.config/gcloud \
+    financial-stress-test:latest
+```
+
+### GCP Cloud Run Deployment
+
+#### Deploy Command
+
+```bash
+gcloud run deploy financial-stress-test-api \
+    --image gcr.io/YOUR_PROJECT_ID/financial-stress-test:latest \
+    --platform managed \
+    --region us-central1 \
+    --allow-unauthenticated \
+    --memory 4Gi \
+    --cpu 2 \
+    --min-instances 1 \
+    --max-instances 10 \
+    --set-env-vars GCS_BUCKET_NAME=mlops-models,GCS_DATA_BUCKET=mlops-data
+```
+
+#### Configuration
+
+- **Memory:** 4GB
+- **CPU:** 2 vCPUs
+- **Min Instances:** 1 (always warm)
+- **Max Instances:** 10 (auto-scaling)
+- **Timeout:** 300 seconds
+- **Concurrency:** 100 requests per instance
+
+#### Access Deployed API
+
+```bash
+# Get service URL
+gcloud run services describe financial-stress-test-api \
+    --region us-central1 \
+    --format 'value(status.url)'
+
+# Test health endpoint
+curl $(gcloud run services describe financial-stress-test-api \
+    --region us-central1 \
+    --format 'value(status.url)')/api/v1/health
+```
+
+---
+
+## 🔄 CI/CD Pipeline
+
+### GitHub Actions Workflows
+
+#### 1. Model Retraining Pipeline (`.github/workflows/retrain.yml`)
+
+**Triggers:**
+- Push to `main` branch in `models/` or `data/` directories
+- Weekly schedule (every Sunday at midnight)
+- Manual workflow dispatch
+
+**Steps:**
+1. Checkout code
+2. Set up Python 3.9
+3. Install dependencies
+4. Authenticate to GCP
+5. Download latest data from GCS
+6. Train Model 1 (VAE)
+7. Train Model 2 (LightGBM)
+8. Train Model 3 (SVM)
+9. Upload trained models to GCS
+10. Trigger API reload endpoint
+11. Run integration tests
+
+**Workflow:**
+```yaml
+name: Model Retraining Pipeline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'models/**'
+      - 'data/**'
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday
+  workflow_dispatch:
+
+jobs:
+  retrain:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Train models
+        run: |
+          python models/model1_vae/train_vae.py
+          python models/model2_forecasting/train_lightgbm.py
+          python models/model3_anomaly/train_svm.py
+      - name: Upload to GCS
+        run: |
+          gsutil cp models/*.pkl gs://mlops-models/
+      - name: Reload API
+        run: |
+          curl -X POST ${{ secrets.API_URL }}/api/v1/admin/reload-models
+```
+
+#### 2. Testing Pipeline (`.github/workflows/tests.yml`)
+
+**Triggers:**
+- Pull request to `main` branch
+- Push to any branch
+
+**Steps:**
+1. Run unit tests
+2. Run integration tests
+3. Check code coverage
+4. Lint code (flake8, black)
+5. Type checking (mypy)
+
+### Model Versioning Strategy
+
+- **Naming Convention:** `model_YYYYMMDD_HHMMSS.pkl`
+- **Storage:** GCS with automatic versioning enabled
+- **Rollback:** Previous versions retained for 30 days
+- **Loading:** API always loads latest model by timestamp
+
+---
+
+## 📊 Monitoring & Drift Detection
+
+### Data Drift Detection
+
+**Method:** Kolmogorov-Smirnov (KS) Statistical Test
+
+**Monitored Features:**
+- Economic indicators (GDP, VIX, unemployment)
+- Company financials (revenue, EPS, debt ratios)
+
+**Detection Logic:**
+```python
+from scipy.stats import ks_2samp
+
+def detect_drift(reference_data, current_data, threshold=0.05):
+    """
+    Detect distribution drift using KS test
+    
+    Returns:
+        True if drift detected (p-value < threshold)
+    """
+    statistic, p_value = ks_2samp(reference_data, current_data)
+    return p_value < threshold
+```
+
+**Alert Threshold:** p-value < 0.05
+
+### Model Performance Monitoring
+
+**Metrics Tracked:**
+- Prediction RMSE over time
+- Error distribution shifts
+- Inference latency (p50, p95, p99)
+- API response times
+
+**Dashboard:** Real-time metrics in GCP Cloud Logging
+
+### Alerting System
+
+**Alert Conditions:**
+- Data drift detected in >3 features
+- Model RMSE increases >10%
+- API error rate exceeds 5%
+- Inference latency >2 seconds
+
+**Notification Channels:**
+- Email alerts to team
+- Slack webhooks (#mlops-alerts)
+- GCP Cloud Monitoring
+
+**Setup Alerts:**
+```bash
+# Create alert policy in GCP
+gcloud alpha monitoring policies create \
+    --notification-channels=CHANNEL_ID \
+    --display-name="Model Performance Alert" \
+    --condition-display-name="High Error Rate" \
+    --condition-threshold-value=0.05 \
+    --condition-threshold-duration=300s
+```
+
+---
+
+## 📚 API Documentation
+
+### Base URL
+
+- **Local:** `http://localhost:8000`
+- **Production:** `https://financial-stress-test-api-[hash]-uc.a.run.app`
+
+### Authentication
+
+Currently no authentication required. For production, consider adding:
+- API keys
+- OAuth 2.0
+- JWT tokens
+
+### Endpoints
+
+#### GET `/api/v1/health`
+
+Check API health status and model versions.
+
+**Response:**
+```json
+{
+  "status": "healthy",
+  "models_loaded": true,
+  "model_versions": {
+    "model1": "2024-12-10T14:30:22Z",
+    "model2": {
+      "Revenue": "2024-12-10T14:35:10Z",
+      "EPS": "2024-12-10T14:36:05Z"
+    },
+    "model3": "2024-12-10T14:40:00Z"
+  },
+  "n_companies": 50,
+  "n_scenarios": 100
+}
+```
+
+#### GET `/api/v1/companies`
+
+List all available companies.
+
+**Response:**
+```json
+{
+  "companies": [
+    {
+      "company_id": "AAPL",
+      "name": "Apple Inc.",
+      "sector": "Technology",
+      "market_cap": 3000000000000
+    }
+  ]
+}
+```
+
+#### GET `/api/v1/scenarios`
+
+List all generated scenarios.
+
+**Response:**
+```json
+{
+  "scenarios": [
+    {
+      "scenario_id": 1,
+      "severity": "adverse",
+      "crisis_type": "market_crash",
+      "preview": {
+        "GDP": 24500.0,
+        "VIX": 28.5,
+        "Unemployment_Rate": 5.2
+      }
+    }
+  ]
+}
+```
+
+#### POST `/api/v1/scenarios/generate`
+
+Generate new stress scenarios.
+
+**Request Body:**
+```json
+{
+  "n_scenarios": 50
+}
+```
+
+**Response:**
+```json
+{
+  "status": "success",
+  "n_scenarios": 50,
+  "scenarios": [...]
+}
+```
+
+#### POST `/api/v1/stress-test`
+
+Run stress test for a company.
+
+**Request Body:**
+```json
+{
+  "company_id": "AAPL",
+  "scenario_ids": [1, 2, 3]
+}
+```
+
+**Response:**
+```json
+{
+  "company_id": "AAPL",
+  "n_scenarios": 3,
+  "aggregated": true,
+  "summary": {
+    "avg_risk_score": 42.5,
+    "best_case": {...},
+    "worst_case": {...}
+  },
+  "detailed_results": [...]
+}
+```
+
+#### POST `/api/v1/admin/reload-models`
+
+Force reload models from GCS (admin only).
+
+**Query Parameters:**
+- `force` (boolean): Ignore cache and re-download
+
+**Response:**
 ```json
 {
   "status": "success",
@@ -757,257 +1070,215 @@ POST /api/v1/admin/reload-models?force=true
 }
 ```
 
----
+### Error Responses
 
-## 13. User Dashboard
+All endpoints return consistent error format:
 
-### 13.1 Features
+```json
+{
+  "detail": "Error message here",
+  "status_code": 400,
+  "timestamp": "2024-12-10T15:00:00Z"
+}
+```
 
-The interactive dashboard provides:
-
-1. **📊 Dashboard Tab**: System overview and statistics
-2. **🎲 Generate Scenarios Tab**: Create synthetic stress scenarios
-3. **🔬 Stress Test Tab**: Test individual companies
-4. **💼 Portfolio Analysis Tab**: Test multiple companies
-5. **📈 Results Tab**: View detailed test results
-
-### 13.2 Usage Workflow
-
-#### Step 1: Generate Scenarios
-1. Navigate to "Generate Scenarios" tab
-2. Select number of scenarios (10-100)
-3. Click "Generate New Scenarios"
-4. Click on scenario cards to select them (they turn green)
-
-#### Step 2: Run Stress Test
-1. Navigate to "Stress Test" tab
-2. Select a company from dropdown
-3. Choose "Use Selected Scenarios"
-4. Click "Run Stress Test"
-5. View results in the "Results" tab
-
-#### Step 3: Analyze Results
-Results include:
-- **Risk Score**: 0-100 scale
-- **Predicted Metrics**: Revenue, EPS, Debt, Margin
-- **SHAP Explanations**: Top risk factors
-- **Scenario Details**: Economic conditions
-
-### 13.3 Portfolio Analysis
-
-1. Navigate to "Portfolio Analysis" tab
-2. Add companies with weights (must sum to 100%)
-3. Select scenarios
-4. Click "Analyze Portfolio"
-5. View weighted risk scores and sector breakdown
-
-### 13.4 Screenshots
-
-*[Include screenshots of your dashboard here]*
+**Common Status Codes:**
+- `200`: Success
+- `400`: Bad Request
+- `404`: Not Found
+- `500`: Internal Server Error
+- `503`: Service Unavailable
 
 ---
 
-## 14. Project Structure
+## 🤝 Contributing
 
-```
-financial-stress-test-mlops/
-│
-├── .github/
-│   └── workflows/
-│       └── retrain.yml              # CI/CD pipeline
-│
-├── data/
-│   ├── raw/                         # Raw data from APIs
-│   └── processed/                   # Cleaned data
-│
-├── models/
-│   ├── model1_vae/
-│   │   ├── train_vae.py            # VAE training script
-│   │   ├── generate_scenarios.py   # Scenario generation
-│   │   └── model1_vae.pkl          # Trained model
-│   │
-│   ├── model2_forecasting/
-│   │   ├── train_lightgbm.py       # LightGBM training
-│   │   ├── evaluate.py             # Model evaluation
-│   │   └── best_model_*.pkl        # 5 trained models
-│   │
-│   └── model3_anomaly/
-│       ├── train_svm.py            # SVM training
-│       ├── explain_shap.py         # SHAP explanations
-│       └── model3_svm.pkl          # Trained model
-│
-├── deployment/
-│   ├── api/
-│   │   ├── main.py                 # FastAPI application
-│   │   ├── config.py               # Configuration
-│   │   ├── model_loader.py         # GCS model loader
-│   │   └── endpoints/
-│   │       ├── health.py
-│   │       ├── scenarios.py
-│   │       └── stress_test.py
-│   │
-│   └── frontend/
-│       └── dashboard.html          # React dashboard
-│
-├── airflow/
-│   └── dags/
-│       └── data_pipeline.py        # Airflow DAG
-│
-├── monitoring/
-│   ├── drift_detection.py          # Data drift monitoring
-│   └── performance_tracking.py     # Model performance
-│
-├── tests/
-│   ├── test_models.py              # Unit tests
-│   └── test_api.py                 # API tests
-│
-├── Dockerfile                       # Docker configuration
-├── requirements.txt                 # Python dependencies
-├── README.md                        # This file
-└── .gitignore                       # Git ignore rules
-```
+We welcome contributions from the community! Please follow these guidelines:
 
----
+### How to Contribute
 
-## 15. Setup Instructions
+1. **Fork the Repository**
+   ```bash
+   # Fork via GitHub UI, then clone
+   git clone https://github.com/YOUR_USERNAME/financial-stress-test.git
+   cd financial-stress-test
+   ```
 
-### 15.1 Prerequisites
+2. **Create a Feature Branch**
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
 
-- Python 3.9+
-- Google Cloud Platform account
-- Docker Desktop
-- Git
+3. **Make Your Changes**
+   - Write clean, documented code
+   - Follow PEP 8 style guidelines
+   - Add tests for new features
+   - Update documentation as needed
 
-### 15.2 Local Development Setup
+4. **Run Tests**
+   ```bash
+   # Run all tests
+   pytest tests/
 
-#### Step 1: Clone Repository
-```bash
-git clone https://github.com/your-org/financial-stress-test-mlops.git
-cd financial-stress-test-mlops
-```
+   # Check code style
+   flake8 .
+   black --check .
 
-#### Step 2: Create Virtual Environment
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+   # Type checking
+   mypy models/ deployment/
+   ```
 
-#### Step 3: Install Dependencies
-```bash
-pip install -r requirements.txt
-```
+5. **Commit Your Changes**
+   ```bash
+   git add .
+   git commit -m "feat: add new feature description"
+   ```
 
-#### Step 4: Configure GCP Credentials
-```bash
-# Set up service account
-export GOOGLE_APPLICATION_CREDENTIALS="path/to/service-account-key.json"
+   **Commit Message Format:**
+   - `feat:` New feature
+   - `fix:` Bug fix
+   - `docs:` Documentation changes
+   - `test:` Test additions/changes
+   - `refactor:` Code refactoring
+   - `chore:` Maintenance tasks
 
-# Or authenticate with gcloud
-gcloud auth application-default login
-```
+6. **Push to Your Fork**
+   ```bash
+   git push origin feature/your-feature-name
+   ```
 
-#### Step 5: Configure Environment Variables
-```bash
-# Create .env file
-cat > .env << EOF
-GCS_BUCKET_NAME=mlops-models
-GCS_DATA_BUCKET=mlops-data
-FRED_API_KEY=your_fred_api_key
-MLFLOW_TRACKING_URI=http://localhost:5000
-EOF
-```
+7. **Create a Pull Request**
+   - Go to the original repository
+   - Click "New Pull Request"
+   - Select your fork and branch
+   - Fill out the PR template
 
-#### Step 6: Run Data Pipeline
-```bash
-# Fetch and process data
-python airflow/dags/data_pipeline.py
-```
+### Code Style Guidelines
 
-#### Step 7: Train Models
-```bash
-# Train all models
-python models/model1_vae/train_vae.py
-python models/model2_forecasting/train_lightgbm.py
-python models/model3_anomaly/train_svm.py
-```
+- **Python:** Follow PEP 8
+- **Line Length:** Max 88 characters (Black default)
+- **Docstrings:** Use Google-style docstrings
+- **Type Hints:** Add type hints to all functions
+- **Comments:** Explain complex logic
 
-#### Step 8: Start API Server
-```bash
-cd deployment/api
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-```
+### Testing Requirements
 
-#### Step 9: Open Dashboard
-```bash
-# Open in browser
-open deployment/frontend/dashboard.html
-# Or navigate to: http://localhost:8000/dashboard
-```
+- All new features must include unit tests
+- Maintain >80% code coverage
+- Integration tests for API endpoints
+- Test edge cases and error handling
 
-### 15.3 Docker Deployment
+### Review Process
 
-```bash
-# Build image
-docker build -t financial-stress-test-api .
+1. Automated checks must pass (GitHub Actions)
+2. Code review by at least one maintainer
+3. All comments must be addressed
+4. Squash commits before merging
 
-# Run container
-docker run -p 8000:8000 \
-  -e GCS_BUCKET_NAME=mlops-models \
-  -v ~/.config/gcloud:/root/.config/gcloud \
-  financial-stress-test-api
-```
-
-### 15.4 GCP Deployment
-
-```bash
-# Deploy to Cloud Run
-gcloud run deploy financial-stress-test-api \
-    --source . \
-    --platform managed \
-    --region us-central1 \
-    --allow-unauthenticated
-```
+For detailed guidelines, see [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
 ---
 
-## 16. Team Members
+## 💬 Support
 
-**MLOps Group 11**
+### Getting Help
 
-- **Sushmitha** - Project Lead, Model Development
-- **[Member 2]** - Data Engineering, Pipeline Development
-- **[Member 3]** - API Development, Deployment
-- **[Member 4]** - Frontend Development, Documentation
+- **📖 Documentation:** Check our [docs](docs/) folder for detailed guides
+- **🐛 Bug Reports:** Open an issue on [GitHub Issues](https://github.com/mlops-group-11/financial-stress-test/issues)
+- **💡 Feature Requests:** Use the feature request template
+- **❓ Questions:** Ask in [Discussions](https://github.com/mlops-group-11/financial-stress-test/discussions)
 
-**Course Instructor**: [Professor Name]  
-**Institution**: Northeastern University  
-**Semester**: Fall 2024
+### Contact
+
+- **Email:** mlops-group-11@northeastern.edu
+
+### FAQ
+
+**Q: How often are models retrained?**  
+A: Automatically every Sunday via GitHub Actions, or when changes are pushed to model code.
+
+**Q: Can I use this with my own data?**  
+A: Yes! Replace the data ingestion logic in `airflow/dags/` with your data sources.
+
+**Q: What's the API rate limit?**  
+A: Currently no limits. For production, we recommend implementing rate limiting.
+
+**Q: How do I add a new company?**  
+A: Add the company ticker to `data/company_list.csv` and re-run the data pipeline.
 
 ---
 
-## 📚 References
+## 👥 Team
 
-1. FRED API Documentation: https://fred.stlouisfed.org/docs/api/
-2. Yahoo Finance API: https://finance.yahoo.com/
-3. MLflow Documentation: https://mlflow.org/docs/latest/index.html
-4. FastAPI Documentation: https://fastapi.tiangolo.com/
-5. GCP Cloud Run: https://cloud.google.com/run/docs
+**MLOps Group 11 - Northeastern University**
+
+| Member | Role | Contact |
+|--------|------|---------|
+| **Sushmitha** | Model Development | [@sushmitha](https://github.com/sushmitha) |
+| **Priyanka Senthil Kumar** | Data Engineering, Pipeline | [@member2](https://github.com/member2) |
+| **Parth** | API Development, Deployment | [@member3](https://github.com/member3) |
+| **Sanika** | Frontend, Documentation | [@member4](https://github.com/member4) |
+| **Sailee** | Frontend, Documentation | [@member4](https://github.com/member4) |
+| **Novia** | Frontend, Documentation | [@member4](https://github.com/member4) |
+
+### Acknowledgments
+
+- **Course Instructor:** Prof. Ramin Mohammadi, Northeastern University
+- **Data Providers:** Federal Reserve Economic Data (FRED), Yahoo Finance, Alpha Vantage
+- **Cloud Provider:** Google Cloud Platform
 
 ---
 
 ## 📄 License
 
-This project is developed for educational purposes as part of the MLOps course at Northeastern University.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+```
+MIT License
+
+Copyright (c) 2024 MLOps Group 11, Northeastern University
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+[Full license text in LICENSE file]
+```
 
 ---
 
-## 🙏 Acknowledgments
+## 📊 Project Status
 
-- Federal Reserve Economic Data (FRED) for providing open economic data
-- Yahoo Finance for financial market data
-- Google Cloud Platform for cloud infrastructure
-- Course instructors and TAs for guidance and support
+![Status](https://img.shields.io/badge/status-active-success.svg)
+![Development](https://img.shields.io/badge/development-in--progress-blue.svg)
+
+**Current Version:** 1.0.0  
+**Last Updated:** December 10, 2024  
+**Maintenance:** Actively maintained
+
+### Roadmap
+
+- [x] MVP: Basic stress testing functionality
+- [x] Model training pipeline
+- [x] CI/CD automation
+- [x] Cloud deployment
 
 ---
 
-**Last Updated**: December 10, 2024
+## 🔗 Additional Resources
+
+- **Course Website:** [MLOps Fall 2024](https://northeastern.edu/mlops)
+- **FRED API Docs:** https://fred.stlouisfed.org/docs/api/
+- **Yahoo Finance API:** https://finance.yahoo.com/
+- **MLflow Documentation:** https://mlflow.org/docs/latest/
+- **FastAPI Documentation:** https://fastapi.tiangolo.com/
+- **GCP Cloud Run:** https://cloud.google.com/run/docs
+
+---
+
+**Built by MLOps Group 11 at Northeastern University**
+
+*This project is submitted as part of the MLOps course (Fall 2024)*
