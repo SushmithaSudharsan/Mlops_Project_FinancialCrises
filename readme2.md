@@ -8,7 +8,7 @@
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Key Features](#key-features)
@@ -49,7 +49,7 @@ A **complete MLOps platform** that helps financial analysts, portfolio managers,
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 ### Three-Model ML Pipeline
 
@@ -65,13 +65,13 @@ Generates scenarios      Predicts: Revenue,       Outputs: 0-100 risk
 
 ### Full MLOps Automation
 
-- ✅ **Continuous Integration**: Tests on every code push
-- ✅ **Continuous Deployment**: Automatic model training & deployment
-- ✅ **Drift Detection**: Weekly monitoring with auto-retraining
-- ✅ **Model Versioning**: All models tracked with timestamps & backups
-- ✅ **Experiment Tracking**: MLflow logs all training runs
+- **Continuous Integration**: Tests on every code push
+- **Continuous Deployment**: Automatic model training & deployment
+- **Drift Detection**: Weekly monitoring with auto-retraining
+- **Model Versioning**: All models tracked with timestamps & backups
+- **Experiment Tracking**: MLflow logs all training runs
 
-### 📊 Production-Ready API
+### Production-Ready API
 
 - **FastAPI Backend**: RESTful endpoints with auto-generated docs
 - **Cloud Deployment**: Google Cloud Run with auto-scaling
@@ -146,13 +146,13 @@ Serves predictions to end users:
 
 ---
 
-## 🔄 System Flow
+## System Flow
 
 ### Complete Request-Response Flow
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────┐
-│                    USER INTERACTION                                       │
+│                    USER INTERACTION                                      │
 │  User selects: Company (Ford) + Scenario (Severe Recession)              │
 └───────────────────────────────┬──────────────────────────────────────────┘
                                 │
@@ -169,21 +169,21 @@ Serves predictions to end users:
                                 ↓
 ┌───────────────────────────────────────────────────────────────────────────┐
 │                    STEP 2: FEATURE MAPPING                                │
-│  FeatureMapper expands 72 → 211 features:                                │
+│  FeatureMapper expands 72 → 211 features:                                 │
 │    • Direct: GDP → GDP_last                                               │
-│    • Derived: VIX → vix_q_mean, vix_q_max, vix_q_std                     │
-│    • Company: Add Revenue, Debt, Margins from database                   │
-│  Result: 211 features ready for Model 2                                  │
+│    • Derived: VIX → vix_q_mean, vix_q_max, vix_q_std                      │
+│    • Company: Add Revenue, Debt, Margins from database                    │
+│  Result: 211 features ready for Model 2                                   │
 └───────────────────────────────┬───────────────────────────────────────────┘
                                 │
                                 ↓
 ┌───────────────────────────────────────────────────────────────────────────┐
 │                   STEP 3: FINANCIAL PREDICTIONS                           │
-│  Model 2 (5 LightGBM models) predicts:                                   │
-│    • Revenue: $26.2B (currently $34.5B) → -24%                           │
-│    • EPS: $0.08 (currently $0.55) → -85%                                 │
-│    • Debt/Equity: 4.9 (currently 3.8) → +29%                             │
-│    • Profit Margin: 0.9% (currently 4.2%) → -79%                         │
+│  Model 2 (5 LightGBM models) predicts:                                    │
+│    • Revenue: $26.2B (currently $34.5B) → -24%                            │
+│    • EPS: $0.08 (currently $0.55) → -85%                                  │
+│    • Debt/Equity: 4.9 (currently 3.8) → +29%                              │
+│    • Profit Margin: 0.9% (currently 4.2%) → -79%                          │
 │    • Stock Return: -46%                                                   │
 └───────────────────────────────┬───────────────────────────────────────────┘
                                 │
@@ -191,29 +191,29 @@ Serves predictions to end users:
 ┌───────────────────────────────────────────────────────────────────────────┐
 │                   STEP 4: RISK ASSESSMENT                                 │
 │  Extract 14 key features:                                                 │
-│    • 7 Macro (from scenario): GDP, VIX, Unemployment, etc.               │
-│    • 7 Company (current): Revenue, Debt, Margins, etc.                   │
+│    • 7 Macro (from scenario): GDP, VIX, Unemployment, etc.                │
+│    • 7 Company (current): Revenue, Debt, Margins, etc.                    │
 │                                                                           │
-│  Model 3 (One-Class SVM) analyzes:                                       │
-│    → Anomaly Score: -2.3 (negative = at-risk)                            │
-│    → Risk Score: 78/100 (HIGH RISK)                                      │
+│  Model 3 (One-Class SVM) analyzes:                                        │
+│    → Anomaly Score: -2.3 (negative = at-risk)                             │
+│    → Risk Score: 78/100 (HIGH RISK)                                       │
 └───────────────────────────────┬───────────────────────────────────────────┘
                                 │
                                 ↓
 ┌───────────────────────────────────────────────────────────────────────────┐
 │                 STEP 5: EXPLAINABILITY (SHAP)                             │
-│  Why is Ford at 78/100 risk?                                             │
-│    1. High Debt (3.8x equity) → +25 points (32%)                         │
-│    2. GDP Decline (-3.2%) → +18 points (23%)                             │
-│    3. Unemployment (10.2%) → +15 points (19%)                            │
-│    4. Low Margins (4.2%) → +12 points (15%)                              │
-│    5. Cyclical Sector (Auto) → +8 points (11%)                           │
+│  Why is Ford at 78/100 risk?                                              │
+│    1. High Debt (3.8x equity) → +25 points (32%)                          │
+│    2. GDP Decline (-3.2%) → +18 points (23%)                              │
+│    3. Unemployment (10.2%) → +15 points (19%)                             │ 
+│    4. Low Margins (4.2%) → +12 points (15%)                               │
+│    5. Cyclical Sector (Auto) → +8 points (11%)                            │
 └───────────────────────────────┬───────────────────────────────────────────┘
                                 │
                                 ↓
 ┌───────────────────────────────────────────────────────────────────────────┐
 │                        STEP 6: RESPONSE                                   │
-│  JSON returned to dashboard:                                             │
+│  JSON returned to dashboard:                                              │
 │    {                                                                      │
 │      "company_id": "F",                                                   │
 │      "risk_score": 78,                                                    │
@@ -222,13 +222,13 @@ Serves predictions to end users:
 │      "shap_explanations": [...]                                           │
 │    }                                                                      │
 │                                                                           │
-│  Total Time: 1.5 seconds ⚡                                               │
+│  Total Time: 1.5 seconds                                                  │
 └───────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
 ### For Business Users
 
@@ -257,7 +257,7 @@ Serves predictions to end users:
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ### Data Pipeline Architecture
 
@@ -478,7 +478,7 @@ gcloud run deploy financial-stress-api \
 
 ---
 
-## 🎮 Quick Start
+## Quick Start
 
 ### Generate Scenarios
 
@@ -577,7 +577,7 @@ curl http://localhost:8000/api/v1/companies
 
 ---
 
-## 🔄 CI/CD Pipeline
+## CI/CD Pipeline
 
 ### Automated Workflows
 
@@ -695,13 +695,13 @@ Result: Models stay accurate automatically
 
 ---
 
-## 📊 Monitoring & Drift Detection
+## Monitoring & Drift Detection
 
 ### Weekly Monitoring Process
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│              SUNDAY 2:00 AM - AUTOMATED CHECK                │
+│              SUNDAY 2:00 AM - AUTOMATED CHECK               │
 └─────────────────────────────────────────────────────────────┘
 
 STEP 1: Download Current State
@@ -715,7 +715,7 @@ STEP 2: Test VAE Performance
 ├─ Calculate KS statistic per feature
 ├─ Average KS: 0.79
 └─ Threshold: 0.70
-    → 0.79 > 0.70 ✅ NO DRIFT
+    → 0.79 > 0.70 -> NO DRIFT
 
 STEP 3: Test Anomaly Model Performance
 ├─ Predict on recent companies
@@ -724,7 +724,7 @@ STEP 3: Test Anomaly Model Performance
 ├─ Baseline ROC: 0.82
 ├─ Drop: 2.4%
 └─ Threshold: ROC > 0.75 AND drop < 5%
-    → Both conditions met ✅ NO DRIFT
+    → Both conditions met -> NO DRIFT
 
 STEP 4: Check Concept Drift
 ├─ Measure feature correlations
@@ -732,12 +732,12 @@ STEP 4: Check Concept Drift
 ├─ Debt vs AT_RISK: 0.56 (was 0.58)
 ├─ Max change: 4.6%
 └─ Threshold: Change > 30%
-    → 4.6% < 30% ✅ NO CONCEPT DRIFT
+    → 4.6% < 30% -> NO CONCEPT DRIFT
 
 STEP 5: Decision
-├─ VAE: Healthy ✅
-├─ Anomaly: Healthy ✅
-├─ Concept: Stable ✅
+├─ VAE: Healthy 
+├─ Anomaly: Healthy 
+├─ Concept: Stable 
 └─ Action: No retraining needed
 
 STEP 6: Log & Notify
@@ -745,7 +745,7 @@ STEP 6: Log & Notify
 │  └─ custom.googleapis.com/vae/ks_statistic: 0.79
 │  └─ custom.googleapis.com/anomaly/roc_auc: 0.80
 ├─ Save drift report to GCS
-└─ Email team: "✅ Weekly check complete - All systems healthy"
+└─ Email team: "Weekly check complete - All systems healthy"
 ```
 
 ### Drift Detection Thresholds
@@ -762,11 +762,11 @@ STEP 6: Log & Notify
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│            DRIFT DETECTED - AUTO-RETRAINING FLOW             │
+│            DRIFT DETECTED - AUTO-RETRAINING FLOW            │
 └─────────────────────────────────────────────────────────────┘
 
 2:05 AM - Alert Email Sent
-├─ Subject: "🚨 Drift Detected - Retraining Started"
+├─ Subject: "Drift Detected - Retraining Started"
 ├─ Body: "VAE KS dropped to 0.68 (below 0.70 threshold)"
 └─ Link to GitHub Actions run
 
@@ -781,7 +781,7 @@ STEP 6: Log & Notify
 ├─ New Dense VAE: KS = 0.82
 ├─ New Ensemble VAE: KS = 0.84
 ├─ Current production: KS = 0.68
-└─ Decision: Deploy Ensemble (0.84 > 0.68) ✅
+└─ Decision: Deploy Ensemble (0.84 > 0.68)
 
 3:45 AM - Deployment
 ├─ Backup old model:
@@ -791,17 +791,17 @@ STEP 6: Log & Notify
 └─ Update metadata.json
 
 3:50 AM - Success Email Sent
-├─ Subject: "✅ Retraining Complete - Models Deployed"
+├─ Subject: "Retraining Complete - Models Deployed"
 ├─ Body: "VAE improved: 0.68 → 0.84"
 └─ Next API request uses new model automatically
 
 TOTAL TIME: 1 hour 40 minutes (fully automatic)
-RESULT: Models healthy again, drift resolved ✅
+RESULT: Models healthy again, drift resolved
 ```
 
 ---
 
-## 📡 API Documentation
+## API Documentation
 
 ### Base URL
 
@@ -840,7 +840,7 @@ Visit `/docs` endpoint in your browser for Swagger UI with:
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 financial-stress-mlops/
@@ -1018,7 +1018,7 @@ gs://mlops-financial-stress-data/
 
 ---
 
-## 🤖 Model Details
+## Model Details
 
 ### Model 1: VAE Scenario Generator
 
@@ -1207,15 +1207,15 @@ Edit `configs/model_config.yaml` to adjust:
 
 ---
 
-## 📊 Model Performance Comparison
+## Model Performance Comparison
 
 ### VAE Models Tested
 
 | Model | KS Statistic | Inference Time | Model Size | Selected |
 |-------|--------------|----------------|------------|----------|
-| Dense VAE (latent=8) | 0.72 | 35ms | 1.8 MB | ❌ |
-| Dense VAE (latent=16) | 0.81 | 50ms | 2.3 MB | ✅ |
-| Dense VAE (latent=32) | 0.82 | 95ms | 4.1 MB | ❌ |
+| Dense VAE (latent=8) | 0.72 | 35ms | 1.8 MB | No |
+| Dense VAE (latent=16) | 0.81 | 50ms | 2.3 MB | Yes |
+| Dense VAE (latent=32) | 0.82 | 95ms | 4.1 MB | No |
 | Ensemble VAE (5 models) | 0.83 | 200ms | 11.5 MB | Production |
 
 **Selection Criteria**: KS > 0.80, Inference < 100ms (for real-time API)
@@ -1224,11 +1224,11 @@ Edit `configs/model_config.yaml` to adjust:
 
 | Model | ROC-AUC | Precision | Recall | Inference | Selected |
 |-------|---------|-----------|--------|-----------|----------|
-| Isolation Forest | 0.78 | 0.51 | 0.62 | 45ms | ❌ |
-| Local Outlier Factor | 0.75 | 0.48 | 0.55 | 120ms | ❌ |
-| One-Class SVM (RBF) | **0.82** | **0.58** | **0.68** | 48ms | ✅ |
-| One-Class SVM (Linear) | 0.74 | 0.52 | 0.60 | 35ms | ❌ |
-| DBSCAN | 0.68 | 0.42 | 0.51 | 200ms | ❌ |
+| Isolation Forest | 0.78 | 0.51 | 0.62 | 45ms | No |
+| Local Outlier Factor | 0.75 | 0.48 | 0.55 | 120ms | No |
+| One-Class SVM (RBF) | **0.82** | **0.58** | **0.68** | 48ms | Yes |
+| One-Class SVM (Linear) | 0.74 | 0.52 | 0.60 | 35ms | No |
+| DBSCAN | 0.68 | 0.42 | 0.51 | 200ms | No |
 
 **Winner**: One-Class SVM (RBF kernel) - Best balance of accuracy and speed
 
@@ -1272,7 +1272,7 @@ Each prediction includes top 5 factors contributing to risk, showing:
 
 ---
 
-## 🔍 Monitoring Dashboard
+## Monitoring Dashboard
 
 ### Accessing Cloud Monitoring
 
@@ -1301,7 +1301,7 @@ Navigate to Google Cloud Console and view custom metrics:
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please follow these steps:
 
@@ -1322,7 +1322,7 @@ We welcome contributions! Please follow these steps:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
@@ -1342,7 +1342,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 | Sailee Ritesh Choudhari | [![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github)](https://github.com/sailee-username) |
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **Data Sources**: Federal Reserve Economic Data (FRED), Yahoo Finance, Alpha Vantage
 - **ML Frameworks**: TensorFlow, LightGBM, scikit-learn
