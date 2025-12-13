@@ -1,11 +1,10 @@
 # Financial Stress Test Platform
 
-[![CI/CD Pipeline](https://github.com/yourusername/financial-stress-mlops/workflows/CI/badge.svg)](https://github.com/yourusername/financial-stress-mlops/actions)
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![MLOps](https://img.shields.io/badge/MLOps-Production-green.svg)]()
 
-**AI-Powered Economic Stress Testing with Automated Retraining & Explainable AI**
+## *AI-Powered Economic Stress Testing with Automated Retraining & Explainable AI*
 
 > Generate realistic economic scenarios and predict company financial vulnerability using a production-grade MLOps pipeline with automated drift detection and continuous deployment.
 
@@ -54,7 +53,7 @@ A **complete MLOps platform** that helps financial analysts, portfolio managers,
 
 ## ✨ Key Features
 
-### 🧠 Three-Model ML Pipeline
+### Three-Model ML Pipeline
 
 ```
 Model 1: VAE          →  Model 2: Predictors   →  Model 3: Anomaly
@@ -66,7 +65,7 @@ Generates scenarios      Predicts: Revenue,       Outputs: 0-100 risk
                         Stock Return
 ```
 
-### 🔄 Full MLOps Automation
+### Full MLOps Automation
 
 - ✅ **Continuous Integration**: Tests on every code push
 - ✅ **Continuous Deployment**: Automatic model training & deployment
@@ -76,11 +75,11 @@ Generates scenarios      Predicts: Revenue,       Outputs: 0-100 risk
 
 ### 📊 Production-Ready API
 
-- 🚀 **FastAPI Backend**: RESTful endpoints with auto-generated docs
-- ☁️ **Cloud Deployment**: Google Cloud Run with auto-scaling
-- 📦 **Docker Container**: Reproducible deployment environment
-- 🔒 **Authentication**: Secure access with API keys
-- 📈 **Monitoring**: Real-time performance metrics
+- **FastAPI Backend**: RESTful endpoints with auto-generated docs
+- **Cloud Deployment**: Google Cloud Run with auto-scaling
+- **Docker Container**: Reproducible deployment environment
+- **Authentication**: Secure access with API keys
+- **Monitoring**: Real-time performance metrics
 
 ---
 
@@ -235,28 +234,28 @@ Serves predictions to end users:
 
 ### For Business Users
 
-- 🎲 **Unlimited Scenarios**: Generate 100+ stress scenarios (not limited to historical crises)
-- ⚡ **Fast Analysis**: Test entire portfolio in minutes (vs days manually)
-- 📊 **Clear Explanations**: See exactly WHY each company is at risk
-- 📈 **Visual Dashboard**: Interactive charts, risk gauges, heatmaps
-- 💼 **Portfolio Analysis**: Test multiple holdings simultaneously
+- **Unlimited Scenarios**: Generate 100+ stress scenarios (not limited to historical crises)
+- **Fast Analysis**: Test entire portfolio in minutes (vs days manually)
+- **Clear Explanations**: See exactly WHY each company is at risk
+- **Visual Dashboard**: Interactive charts, risk gauges, heatmaps
+- **Portfolio Analysis**: Test multiple holdings simultaneously
 
 ### For Data Scientists
 
-- 🔬 **Production MLOps**: Complete CI/CD with 5 automated workflows
-- 📉 **Drift Detection**: Weekly monitoring with automated retraining
-- 🎯 **Model Selection**: Automatic selection of best model per target
-- 🧪 **Experiment Tracking**: MLflow integration for reproducibility
-- ⚖️ **Bias Detection**: Sector-specific performance monitoring
-- 📖 **Explainability**: SHAP values for regulatory compliance
+- **Production MLOps**: Complete CI/CD with 5 automated workflows
+- **Drift Detection**: Weekly monitoring with automated retraining
+- **Model Selection**: Automatic selection of best model per target
+- **Experiment Tracking**: MLflow integration for reproducibility
+- **Bias Detection**: Sector-specific performance monitoring
+- **Explainability**: SHAP values for regulatory compliance
 
 ### For DevOps
 
-- 🐳 **Containerized**: Docker deployment (runs anywhere)
-- ☁️ **Cloud Native**: Google Cloud Platform integration
-- 📦 **Auto-Scaling**: Handles 1-100 concurrent users automatically
-- 🔐 **Secure**: GCS authentication, API key management
-- 📊 **Monitored**: Cloud Monitoring with custom metrics
+- **Containerized**: Docker deployment (runs anywhere)
+- **Cloud Native**: Google Cloud Platform integration
+- **Auto-Scaling**: Handles 1-100 concurrent users automatically
+- **Secure**: GCS authentication, API key management
+- **Monitored**: Cloud Monitoring with custom metrics
 
 ---
 
@@ -595,7 +594,7 @@ Steps:
 ├─ Install Python 3.10 + dependencies
 ├─ Run pytest (all unit tests)
 ├─ Validate Airflow DAG syntax
-└─ Report status (✅ or ❌)
+└─ Report status (Yes or No)
 
 Purpose: Ensure code quality before deployment
 ```
@@ -858,10 +857,8 @@ financial-stress-mlops/
 │
 ├── src/
 │   ├── data/                                   # Data collection scripts
-│   │   ├── download_fred.py
-│   │   └── download_yahoo.py
-│   │
-│   ├── preprocessing/                          # Data processing
+│   │  
+│   │   ├── preprocessing/                          # Data processing
 │   │   ├── feature_engineering.py
 │   │   ├── temporal_split.py
 │   │   ├── drop_features.py
@@ -944,7 +941,7 @@ financial-stress-mlops/
 │   └── models/
 │
 ├── requirements.txt                            # Python dependencies
-├── README.md                                   # This file
+├── README.md                                  
 ├── LICENSE
 └── .gitignore
 ```
@@ -1339,9 +1336,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 | Member | GitHub |
 |--------|--------|
-| Sushmitha | ![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github) |
-| Member 2 | ![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github) |
-| Member 3 | ![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github) |
+| Novia Vijay Dsilva  | ![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github) |
+| Sushmitha Sudharsan  | ![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github) |
+| Priyanka Senthilkumar | ![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github) |
+| Sanika Anant Chaudhari  | ![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github) |
+| Parth Sanjay Saraykar | ![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github) |
+| Sailee Ritesh Choudhari  | ![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github) |
 
 ---
 
