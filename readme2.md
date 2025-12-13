@@ -87,9 +87,6 @@ Generates scenarios      Predicts: Revenue,       Outputs: 0-100 risk
 
 ![System Architecture Diagram]![mlops-architecture-diagram](https://github.com/user-attachments/assets/59176870-ef82-4f15-916e-c59ff24455c3)
 
-
-> **Note**: Place your architecture diagram image in `docs/images/` folder and update the path above.
-
 ### Architecture Overview
 
 Our MLOps platform is built on **five integrated layers** that work together to provide automated stress testing:
