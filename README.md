@@ -159,10 +159,6 @@ Serves predictions to end users:
 
 ## System Flow
 
-### Dashboard
-
-> View our dashboard here: https://storage.googleapis.com/mlops-financial-stress-ui/login.html
-
 ### Complete Request-Response Flow
 
 ```
@@ -534,12 +530,14 @@ curl http://localhost:8000/api/v1/companies
 
 ### Using the Dashboard
 
+> View our dashboard here: https://storage.googleapis.com/mlops-financial-stress-ui/login.html
+
 #### 1. Generate Scenarios
 
 - Navigate to **"Generate Scenarios"** tab
 - Select number of scenarios (10, 50, 100, or 200)
 - Click **"Generate Scenarios"**
-- View generated scenario cards showing economic indicators (GDP, VIX, Unemployment, Oil Price, S&P 500)
+- View generated scenario cards showing economic indicators (GDP, VIX, Unemployment)
 
 #### 2. Run Company Stress Test
 
@@ -556,10 +554,9 @@ curl http://localhost:8000/api/v1/companies
 #### 3. Analyze Portfolio
 
 - Navigate to **"Portfolio Analysis"** tab
-- Upload CSV file with your holdings (Company, Ticker, Allocation)
+- Use the Companies that you want to compare from the dropdown list
 - Select scenario to test against
-- View portfolio heatmap showing risk by holding
-- Review rebalancing recommendations
+- View portfolio analysis that shows the risk score for the companies selected
 
 ---
 
@@ -1125,7 +1122,7 @@ Output: Realistic scenario (GDP, VIX, Unemployment, etc.)
 
 ---
 
-## 🧪 Running Tests
+## Running Tests
 
 ### Test Execution
 
@@ -1323,7 +1320,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 | Novia Vijay Dsilva | [![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github)](https://github.com/Novia-Dsilva) |
 | Sushmitha Sudharsan | [![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github)](https://github.com/SushmithaSudharsan) |
 | Priyanka Senthilkumar | [![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github)](https://github.com/priyanka-senthil) |
-| Sanika Anant Chaudhari | [![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github)](https://github.com/sanika-username) |
+| Sanika Anant Chaudhari | [![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github)](https://github.com/Sanika0701) |
 | Parth Sanjay Saraykar | [![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github)](https://github.com/parth-username) |
 | Sailee Ritesh Choudhari | [![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github)](https://github.com/sailee-username) |
 ---
