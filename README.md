@@ -79,15 +79,39 @@ Generates scenarios      Predicts: Revenue,       Outputs: 0-100 risk
 - **Authentication**: Secure access with API keys
 - **Monitoring**: Real-time performance metrics
 
----
+### For Business Users
 
+- **Unlimited Scenarios**: Generate 100+ stress scenarios (not limited to historical crises)
+- **Fast Analysis**: Test entire portfolio in minutes (vs days manually)
+- **Clear Explanations**: See exactly WHY each company is at risk
+- **Visual Dashboard**: Interactive charts, risk gauges, heatmaps
+- **Portfolio Analysis**: Test multiple holdings simultaneously
+
+### For Data Scientists
+
+- **Production MLOps**: Complete CI/CD with 5 automated workflows
+- **Drift Detection**: Weekly monitoring with automated retraining
+- **Model Selection**: Automatic selection of best model per target
+- **Experiment Tracking**: MLflow integration for reproducibility
+- **Bias Detection**: Sector-specific performance monitoring
+- **Explainability**: SHAP values for regulatory compliance
+
+### For DevOps
+
+- **Containerized**: Docker deployment (runs anywhere)
+- **Cloud Native**: Google Cloud Platform integration
+- **Auto-Scaling**: Handles 1-100 concurrent users automatically
+- **Secure**: GCS authentication, API key management
+- **Monitored**: Cloud Monitoring with custom metrics
+
+---
 ## Architecture
 
 ### Complete System Architecture
 
-![System Architecture Diagram]![mlops-architecture-diagram](https://github.com/user-attachments/assets/59176870-ef82-4f15-916e-c59ff24455c3)
+![mlops-architecture-diagram](https://github.com/user-attachments/assets/59176870-ef82-4f15-916e-c59ff24455c3)
 
-### Architecture Overview
+### System Architecture Overview
 
 Our MLOps platform is built on **five integrated layers** that work together to provide automated stress testing:
 
@@ -126,25 +150,18 @@ Serves predictions to end users:
 - **Docker + GCP Cloud Run**: Containerized, auto-scaling deployment
 - **Dashboard**: Interactive web interface for end users
 
---- performance indicators
+**Monitoring**
 - **Evidently Drift Check**: Statistical distribution analysis
 - **Grafana Dashboard**: Visual monitoring interface
 - **Alert System**: Notifications when drift detected or models retrained
 
-#### **Layer 5: API & Deployment**
-Serves predictions to end users:
-- **Model Loader**: Downloads models from GCS on startup
-- **Data Fetcher**: Retrieves company information
-- **Feature Mapper**: Transforms data between model formats (72→116→211→14)
-- **Stress Test Pipeline**: Orchestrates three-model inference (M1→M2→M3)
-- **SHAP Explainer**: Generates risk factor explanations
-- **FastAPI**: Provides REST endpoints
-- **Docker + GCP Cloud Run**: Containerized, auto-scaling deployment
-- **Dashboard**: Interactive web interface for end users
-
 ---
 
 ## System Flow
+
+### Dashboard
+
+> View our dashboard here: https://storage.googleapis.com/mlops-financial-stress-ui/login.html
 
 ### Complete Request-Response Flow
 
@@ -226,36 +243,7 @@ Serves predictions to end users:
 
 ---
 
-## Key Features
-
-### For Business Users
-
-- **Unlimited Scenarios**: Generate 100+ stress scenarios (not limited to historical crises)
-- **Fast Analysis**: Test entire portfolio in minutes (vs days manually)
-- **Clear Explanations**: See exactly WHY each company is at risk
-- **Visual Dashboard**: Interactive charts, risk gauges, heatmaps
-- **Portfolio Analysis**: Test multiple holdings simultaneously
-
-### For Data Scientists
-
-- **Production MLOps**: Complete CI/CD with 5 automated workflows
-- **Drift Detection**: Weekly monitoring with automated retraining
-- **Model Selection**: Automatic selection of best model per target
-- **Experiment Tracking**: MLflow integration for reproducibility
-- **Bias Detection**: Sector-specific performance monitoring
-- **Explainability**: SHAP values for regulatory compliance
-
-### For DevOps
-
-- **Containerized**: Docker deployment (runs anywhere)
-- **Cloud Native**: Google Cloud Platform integration
-- **Auto-Scaling**: Handles 1-100 concurrent users automatically
-- **Secure**: GCS authentication, API key management
-- **Monitored**: Cloud Monitoring with custom metrics
-
----
-
-## Architecture
+## Architecture of our Pipelines
 
 ### Data Pipeline Architecture
 
@@ -542,7 +530,7 @@ curl http://localhost:8000/api/v1/companies
 
 ---
 
-## 📖 Usage Guide
+### Usage Guide
 
 ### Using the Dashboard
 
