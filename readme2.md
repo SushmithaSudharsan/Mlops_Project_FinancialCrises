@@ -1,4 +1,4 @@
-# 🏦 Financial Stress Test Platform
+# Financial Stress Test Platform
 
 [![CI/CD Pipeline](https://github.com/yourusername/financial-stress-mlops/workflows/CI/badge.svg)](https://github.com/yourusername/financial-stress-mlops/actions)
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/)
@@ -30,25 +30,25 @@
 
 ---
 
-## 🎯 Overview
+## Overview
 
 ### What is This?
 
 A **complete MLOps platform** that helps financial analysts, portfolio managers, and risk teams:
 
-1. 🎲 **Generate** unlimited realistic economic stress scenarios (recession, stagflation, market crash)
-2. 📊 **Predict** how companies perform under each scenario (revenue, profits, debt levels)
-3. ⚠️ **Identify** which companies are at high risk with explainable AI
-4. 🔄 **Automatically retrain** models when performance degrades
-5. 📈 **Visualize** results in an interactive dashboard
+1. **Generate** unlimited realistic economic stress scenarios (recession, stagflation, market crash)
+2. **Predict** how companies perform under each scenario (revenue, profits, debt levels)
+3. **Identify** which companies are at high risk with explainable AI
+4. **Automatically retrain** models when performance degrades
+5. **Visualize** results in an interactive dashboard
 
 ### Why It Matters
 
-- ⏱️ **Time Savings**: Portfolio stress testing from **2 days → 2 minutes** (99.9% reduction)
-- 🎯 **Accuracy**: **82% ROC-AUC** in identifying at-risk companies
-- 🤖 **Automation**: **100% automated** training, validation, and deployment
-- 📖 **Explainable**: SHAP values show **WHY** a company is at risk
-- 🔄 **Adaptive**: Weekly drift detection ensures models stay accurate
+- **Time Savings**: Portfolio stress testing from 2 days → 2 minutes (99.9% reduction)
+- **Accuracy**: 82% ROC-AUC in identifying at-risk companies
+- **Automation**: 100% automated training, validation, and deployment
+- **Explainable**: SHAP values show WHY a company is at risk
+- **Adaptive**: Weekly drift detection ensures models stay accurate
 
 ---
 
@@ -84,7 +84,7 @@ Generates scenarios      Predicts: Revenue,       Outputs: 0-100 risk
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ### Complete System Architecture
 
@@ -96,26 +96,42 @@ Generates scenarios      Predicts: Revenue,       Outputs: 0-100 risk
 
 Our MLOps platform is built on **five integrated layers** that work together to provide automated stress testing:
 
-#### **Layer 1: Data Pipeline**
+**Layer 1: Data Pipeline**
 Collects data from multiple sources (Yahoo Finance, FRED API, Alpha Vantage), performs cleaning and merging, engineers features, validates data quality, and stores processed data in Google Cloud Storage using Airflow DAG orchestration.
 
-#### **Layer 2: Model Training Pipeline**
+**Layer 2: Model Training Pipeline**
 Trains three specialized models independently with MLflow experiment tracking, stores trained models as artifacts in GCS:
 - **Model 1 (VAE)**: Generates economic stress scenarios
 - **Model 2 (Predictors)**: Forecasts 5 financial targets
 - **Model 3 (Anomaly Detection)**: Assesses company risk
 
-#### **Layer 3: CI/CD Pipeline**
+**Layer 3: CI/CD Pipeline**
 Automates the entire workflow with two trigger types:
 - **Code Push**: Continuous integration tests, followed by model-specific CD workflows
 - **Scheduled (Sunday 2 AM)**: Drift monitoring checks model health
 - **Decision Logic**: If drift detected → auto-retrain, if no drift → continue monitoring
 - **Deployment**: Updates models in GCS, API auto-loads new versions
 
-#### **Layer 4: Monitoring & Alerts**
+**Layer 4: Monitoring & Alerts**
 Tracks system health in real-time:
 - **Structured Logs**: Records all system events
 - **Prometheus Metrics**: Monitors performance indicators
+- **Evidently Drift Check**: Statistical distribution analysis
+- **Grafana Dashboard**: Visual monitoring interface
+- **Alert System**: Notifications when drift detected or models retrained
+
+**Layer 5: API & Deployment**
+Serves predictions to end users:
+- **Model Loader**: Downloads models from GCS on startup
+- **Data Fetcher**: Retrieves company information
+- **Feature Mapper**: Transforms data between model formats
+- **Stress Test Pipeline**: Orchestrates three-model inference
+- **SHAP Explainer**: Generates risk factor explanations
+- **FastAPI**: Provides REST endpoints
+- **Docker + GCP Cloud Run**: Containerized, auto-scaling deployment
+- **Dashboard**: Interactive web interface for end users
+
+--- performance indicators
 - **Evidently Drift Check**: Statistical distribution analysis
 - **Grafana Dashboard**: Visual monitoring interface
 - **Alert System**: Notifications when drift detected or models retrained
@@ -298,18 +314,16 @@ sequenceDiagram
 
 ---
 
-## 📥 Installation
+## Installation
 
 ### Prerequisites
 
-- **Python**: 3.10 or higher
-- **Google Cloud Account**: For GCS storage (free tier available)
-- **Git**: For cloning repository
-- **Docker** (optional): For containerized deployment
+- Python 3.10 or higher
+- Google Cloud Account (free tier available)
+- Git for cloning repository
+- Docker (optional, for containerized deployment)
 
----
-
-### 🚀 Getting Started (Clone & Run)
+### Getting Started
 
 #### Step 1: Clone the Repository
 
@@ -320,12 +334,12 @@ cd Mlops_Project_FinancialCrises
 
 #### Step 2: Set Up Python Environment
 
-**Create virtual environment:**
+Create virtual environment:
 ```bash
 python3.10 -m venv venv
 ```
 
-**Activate virtual environment:**
+Activate virtual environment:
 
 For Linux/Mac:
 ```bash
@@ -344,119 +358,115 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-**Verify installation:**
+Verify installation:
 ```bash
-python -c "import tensorflow, lightgbm, fastapi; print('✅ All packages installed')"
+python -c "import tensorflow, lightgbm, fastapi; print('All packages installed')"
 ```
 
 #### Step 4: Configure Google Cloud
 
-**Install Google Cloud SDK** (if not already installed):
+Install Google Cloud SDK (if not already installed):
 - Visit: https://cloud.google.com/sdk/docs/install
-- Follow installation instructions for your OS
 
-**Authenticate with GCP:**
+Authenticate with GCP:
 ```bash
 gcloud auth login
 gcloud config set project ninth-iris-422916-f2
 gcloud auth application-default login
 ```
 
-**Verify GCS access:**
+Verify GCS access:
 ```bash
 gsutil ls gs://mlops-financial-stress-data/
 ```
-You should see folders: data/, models/, outputs/, mlruns/, monitoring/
 
 #### Step 5: Verify Models
 
-**Check that all models exist in GCS:**
+Check that all models exist in GCS:
 ```bash
 cd deployment/api
 python verify_gcs_models.py
 ```
 
-**Expected output:**
+Expected output:
 ```
-✅ MODEL 1: VAE Scenario Generator
-✅ MODEL 2: Predictive Models (5 targets)
-✅ MODEL 3: Anomaly Detection
-✅ ALL REQUIRED MODELS VERIFIED!
+✓ MODEL 1: VAE Scenario Generator
+✓ MODEL 2: Predictive Models (5 targets)
+✓ MODEL 3: Anomaly Detection
+✓ ALL REQUIRED MODELS VERIFIED
 ```
 
 #### Step 6: Start the API Backend
 
-**From the deployment/api directory:**
+From the deployment/api directory:
 ```bash
 python main.py
 ```
 
-**Wait for startup (60 seconds):**
+Wait for startup (60 seconds):
 ```
-📥 Loading models from GCS...
-✅ Model 1 loaded
-✅ Model 2 loaded  
-✅ Model 3 loaded
-📊 Loading company data...
-✅ API READY
-INFO: Uvicorn running on http://0.0.0.0:8000
+Loading models from GCS...
+✓ Model 1 loaded
+✓ Model 2 loaded  
+✓ Model 3 loaded
+Loading company data...
+✓ API READY
+Uvicorn running on http://0.0.0.0:8000
 ```
 
 #### Step 7: Open the Dashboard
 
-**In a new terminal window:**
+In a new terminal window:
 ```bash
 cd deployment/dashboard
 python -m http.server 8080
 ```
 
-**Open your browser:**
+Open your browser:
 - Dashboard: http://localhost:8080
 - API Documentation: http://localhost:8000/docs
 - Health Check: http://localhost:8000/api/v1/health
 
-**🎉 You're ready to use the platform!**
+**Your platform is now running locally!**
 
 ---
 
-### 🐳 Alternative: Docker Deployment
+### Docker Deployment (Alternative)
 
 #### Build and Run with Docker
 
-**Build the container:**
+Build the container:
 ```bash
 docker build -t financial-stress-api -f deployment/docker/Dockerfile.api .
 ```
 
-**Run the container:**
+Run the container:
 ```bash
 docker run -p 8000:8000 \
   -v ~/.config/gcloud:/root/.config/gcloud:ro \
   financial-stress-api
 ```
 
-**Or use Docker Compose:**
+Or use Docker Compose:
 ```bash
 cd deployment/docker
 docker-compose up -d
 ```
 
-Access the API at: http://localhost:8000
-
 ---
 
-### ☁️ Cloud Deployment (Google Cloud Run)
+### Cloud Deployment (Production)
 
-#### Deploy to Production
+#### Deploy to Google Cloud Run
 
-**Build and push image:**
+Build and push image:
 ```bash
 gcloud auth configure-docker
 docker build -t gcr.io/ninth-iris-422916-f2/financial-stress-api .
 docker push gcr.io/ninth-iris-422916-f2/financial-stress-api
 ```
 
-**Deploy to Cloud Run:**
+Deploy to Cloud Run:
 ```bash
 gcloud run deploy financial-stress-api \
   --image gcr.io/ninth-iris-422916-f2/financial-stress-api \
@@ -468,8 +478,6 @@ gcloud run deploy financial-stress-api \
   --timeout 300 \
   --max-instances 10
 ```
-
-You'll receive a production URL to access your deployed API.
 
 ---
 
@@ -767,7 +775,7 @@ STEP 6: Log & Notify
 
 2:10 AM - Retraining Begins (Automatic)
 ├─ Workflow: vae_continuous_deployment.yml triggered
-├─ Download latest 2024 economic data
+├─ Download latest 2025 economic data
 ├─ Train Dense VAE (22 minutes)
 ├─ Train Ensemble VAE (90 minutes)
 └─ Total: ~90 minutes
@@ -780,7 +788,7 @@ STEP 6: Log & Notify
 
 3:45 AM - Deployment
 ├─ Backup old model:
-│  └─ gs://bucket/models/vae/backups/backup_20241212.pkl
+│  └─ gs://bucket/models/vae/backups/backup_20251212.pkl
 ├─ Deploy new model:
 │  └─ gs://bucket/models/vae/deployment/best_model_deployment.pkl
 └─ Update metadata.json
@@ -1298,22 +1306,6 @@ Navigate to Google Cloud Console and view custom metrics:
 
 ---
 
-## 🛠️ Troubleshooting
-
-Common issues and solutions are documented in the project wiki.
-
----
-
-## 📚 Additional Resources
-
-### Related Documentation
-
-- Model Training Guide
-- Deployment Guide  
-- Monitoring Setup Guide
-
----
-
 ## 🤝 Contributing
 
 We welcome contributions! Please follow these steps:
@@ -1355,13 +1347,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- **Data Sources**: Federal Reserve Economic Data (FRED), Yahoo Finance
+- **Data Sources**: Federal Reserve Economic Data (FRED), Yahoo Finance, Alpha Vantage
 - **ML Frameworks**: TensorFlow, LightGBM, scikit-learn
 - **Infrastructure**: Google Cloud Platform
-- **Inspiration**: Basel III stress testing requirements
 
 ---
 
-**Built with ❤️ using MLOps best practices**
-
-*Northeastern University - MLOps Course Project - Fall 2024*
+*Northeastern University - MLOps Course Project - Fall 2025*
