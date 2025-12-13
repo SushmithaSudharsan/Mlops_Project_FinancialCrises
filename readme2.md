@@ -4,9 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![MLOps](https://img.shields.io/badge/MLOps-Production-green.svg)]()
 
-## *AI-Powered Economic Stress Testing with Automated Retraining & Explainable AI*
-
-> Generate realistic economic scenarios and predict company financial vulnerability using a production-grade MLOps pipeline with automated drift detection and continuous deployment.
+## This MLOps Project focuses on generating realistic economic scenarios and predict company financial vulnerability using a production-grade MLOps pipeline with automated drift detection and continuous deployment.
 
 ---
 
