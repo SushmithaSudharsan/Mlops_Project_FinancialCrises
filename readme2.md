@@ -85,7 +85,8 @@ Generates scenarios      Predicts: Revenue,       Outputs: 0-100 risk
 
 ### Complete System Architecture
 
-![System Architecture Diagram](docs/images/mlops-architecture-diagram.png)
+![System Architecture Diagram]![mlops-architecture-diagram](https://github.com/user-attachments/assets/59176870-ef82-4f15-916e-c59ff24455c3)
+
 
 > **Note**: Place your architecture diagram image in `docs/images/` folder and update the path above.
 
