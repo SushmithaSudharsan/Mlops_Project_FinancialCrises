@@ -1334,8 +1334,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 | Member | GitHub |
 |--------|--------|
-| Novia Vijay Dsilva  | ![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github) |
-| Sushmitha Sudharsan  | ![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github) |
+| Novia Vijay Dsilva  | ![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github) | [@[Novia-Dsilva)](https://github.com/Novia-Dsilva)]
+| Sushmitha Sudharsan  | ![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github) | [@[SushmithaSudharsan)](https://github.com/SushmithaSudharsan)]
 | Priyanka Senthilkumar | ![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github) |
 | Sanika Anant Chaudhari  | ![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github) |
 | Parth Sanjay Saraykar | ![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github) |
