@@ -786,6 +786,8 @@ RESULT: Models healthy again, drift resolved
 
 ## API Documentation
 
+![api-end-points](https://github.com/user-attachments/assets/8ff25f7e-fd60-4a8b-86f4-9cef390f2ec0)
+
 ### Base URL
 
 - **Local Development**: `http://localhost:8000`
